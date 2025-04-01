@@ -1,0 +1,15 @@
+# Eclipse
+.classpath
+.project
+.settings/
+
+# Compilation Java
+bin/
+
+# Mac et Windows
+.DS_Store
+Thumbs.db
+
+# Logs et temporaires
+*.log
+*.tmp
