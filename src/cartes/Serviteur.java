@@ -13,7 +13,6 @@ public class Serviteur {
 	 * Constructeur de la classe Serviteur.
 	 * Initialise un nouveau serviteur avec un nom, un coût en mana, une puissance d'attaque,
 	 * un nombre de points de vie et une action spéciale(eventuellement).
-	 *
 	 * @param n le nom du serviteur
 	 * @param m le coût en mana pour jouer cette carte
 	 * @param pa les points d'attaque du serviteur
