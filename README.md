@@ -61,17 +61,17 @@
 
 ## 👥 Répartition des tâches
 
-TRAORE
+# TRAORE
 - Implémentation de la classe Serviteur
 - Méthodes : attaquer(), recevoircoup(), estMort()
 - Génération de serviteurs aléatoires
 - Tests unitaires sur Serviteur        
-MAIGA
+# MAIGA
 - Implémentation de la classe Deck
 - Méthodes : ajouterCarte(), tirerCarteAleatoire(), genererDeckAleatoire()
 - Gestion de la liste de serviteurs
 - Tests unitaires sur Deck
-KANE  
+# KANE  
 - Implémentation de la classe Combat
 - Lancement du jeu dans Main
 - Gestion du déroulement du combat entre deux serviteurs
