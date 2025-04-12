@@ -1,5 +1,5 @@
 package jeu;
-import cartes.Serviteur;
+import cartes.*;
 public class combat {
 	
 
@@ -12,7 +12,10 @@ public class combat {
 	     */
 	    public void demarrerCombat(Serviteur s1, Serviteur s2) {
 	        int tour = 1;
-	        System.out.println("Début du combat !");
+	        System.out.println("⚔ Début du combat entre :");
+	        System.out.println("➡ " + s1.getNom());
+	        System.out.println("➡ " + s2.getNom());
+	        
 	        while (!s1.estMort() && !s2.estMort()) {
 	            System.out.println("\n----- Tour " + tour + " -----");
 	            

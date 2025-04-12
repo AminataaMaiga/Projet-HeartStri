@@ -42,6 +42,10 @@ public class Test_Serviteur {
         s1.recevoircoup(100);
         System.out.println("Est-il mort ? :" + s1.estMort());
         
+     // Test de génération aléatoire
+        Serviteur s3 = Serviteur.genererServiteurAleatoire();
+        System.out.println("Generation aléatoire : " + s3);
+        
         
         /////////// Test pour l'etape 1
         /////////////////////////////////////

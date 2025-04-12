@@ -1,10 +1,10 @@
 package cartes;
 
-public class Serviteur {
+import java.util.Random;
+
+public class Serviteur extends Carte{
 	
-	private String nom;
-	private int mana;
-	private int point_attaque;
+	protected int point_attaque;
 	private int point_de_vie;
 	private String action_speciale;
 	
@@ -22,20 +22,26 @@ public class Serviteur {
 	 */
 	public Serviteur(String n,int m,int pa,int pv,String as) {
    // TODO document why this constructor is empty
-		nom=n;
-		mana=m;
+		super(n,m);
 		point_attaque=pa;
 		point_de_vie=pv;
 		action_speciale=as;
 	}
 	
-	public String getNom(){
-		return nom;
+	public int getPointAttaque() {
+		return point_attaque;
 	}
+	
+	public int getPointVie() {
+		return point_de_vie;
+	}
+	 public String getActionSpeciale() {
+	        return action_speciale;
+	    }
 	
 	@Override
 	public String toString() {
-	    return nom + " [Mana: " + mana + ", ATK: " + point_attaque +
+	    return this.getNom() + " [Mana: " + this.getMana() + ", ATK: " + point_attaque +
 	           ", PV: " + point_de_vie + ", Spé: " + action_speciale + "]";
 	}
 	
@@ -48,7 +54,7 @@ public class Serviteur {
 	public void recevoircoup(int force) {
 		point_de_vie=point_de_vie-force;
 		if (this.estMort()) {
-			System.out.println("Le serviteur"+nom+" est mort dans d'attroces souffrance !");
+			System.out.println("Le serviteur"+getNom()+" est mort dans d'attroces souffrance !");
 			point_de_vie=0;
 		}
 	}
@@ -72,5 +78,23 @@ public class Serviteur {
 	public boolean estMort() {
 		return point_de_vie<=0;
 	}
+	
+	/**
+     * Génère un serviteur aléatoire.
+     * @return un nouveau serviteur aléatoire
+     */
+    public static Serviteur genererServiteurAleatoire() {
+        String[] noms = {"Soldat Orc", "Mage du Néant", "Chasseur Troll", "Chevalier Spectral"};
+        String[] actionsSpe = {"", "Charge", "Provocation", "Râle d’agonie"};
+        Random rand = new Random();
+
+        String nom = noms[rand.nextInt(noms.length)];
+        int mana = rand.nextInt(6) + 1; // 1 à 6
+        int attaque = rand.nextInt(6) + 1;
+        int pv = rand.nextInt(6) + 2; // 2 à 7
+        String action = actionsSpe[rand.nextInt(actionsSpe.length)];
+
+        return new Serviteur(nom, mana, attaque, pv, action);
+    }
 
 }
