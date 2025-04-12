@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestServiteur {
+public class ServiteurTest {
 
     private Serviteur s1;
     private Serviteur s2;

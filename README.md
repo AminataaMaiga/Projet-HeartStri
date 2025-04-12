@@ -63,13 +63,21 @@
 
 ## 👥 Répartition des tâches
 
-| Nom                | Rôle / Tâches principales  |
-|--------------------|----------------------------|
-| TRAORE             |                            |
-| MAIGA              |                            |
-| KANE               |                            |
-
----
+TRAORE
+🔹 Implémentation de la classe Serviteur
+🔹 Méthodes : attaquer(), recevoircoup(), estMort()
+🔹 Génération de serviteurs aléatoires
+🔹 Tests unitaires sur Serviteur        
+MAIGA
+🔹 Implémentation de la classe Deck
+🔹 Méthodes : ajouterCarte(), tirerCarteAleatoire(), genererDeckAleatoire()
+🔹 Gestion de la liste de serviteurs
+🔹 Tests unitaires sur Deck
+KANE  
+🔹 Implémentation de la classe Combat
+🔹 Lancement du jeu dans Main
+🔹 Gestion du déroulement du combat entre deux serviteurs
+🔹 Test fonctionnel du système global via main()
 
 ## 📽️ Présentation
 
