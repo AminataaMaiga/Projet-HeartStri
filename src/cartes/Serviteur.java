@@ -2,6 +2,10 @@ package cartes;
 
 import java.util.Random;
 
+/**
+ * @author Fatoumata
+ */
+
 public class Serviteur extends Carte{
 	
 	protected int point_attaque;

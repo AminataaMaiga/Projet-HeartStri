@@ -1,5 +1,10 @@
 package cartes;
 
+/**
+ * 
+ * @author Fatoumata
+ */
+
 public class Carte {
 	private String nom;
 	private int mana;
