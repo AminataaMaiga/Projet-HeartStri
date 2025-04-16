@@ -12,14 +12,24 @@ import cartes.Serviteur;
  * @author Fatoumata
  */
 public class Joueur {
-
+	
+	 //etape 1
     private String nom_joueur;
     private Deck deck_joueur; // tout les joueur on un deck de 30 cartes
+    
+    //etape 2
     private Hero hero;          // Le héros associé au joueur
     private Main main;          // Cartes en main : 3 pour le joueur1 et 4 pour le joueur2
     private Plateau plateau;    // Serviteurs invoqués
     private int mana = 1;
     private int manaMax = 1;
+    
+    //etape 3
+    
+    //un jourt a un ou  des cartes sort et armes , il peut, il ne peut avoir que une armes a la fois 
+    //par consequent lacer un sort , et une arme peut attaquer un heros ou un serviteur 
+    //les sorts agissent que sur les serviteur
+    
 
     /*
      * Constructeur de la classe Joueur 

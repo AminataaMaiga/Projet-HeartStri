@@ -3,7 +3,9 @@ import cartes.*;
 
 /**
  * Classe de test pour la classe Serviteur.
+ * @author Fatoumata 
  */
+
 public class Test_Serviteur {
 
     public static void main(String[] args) {

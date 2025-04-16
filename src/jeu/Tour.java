@@ -10,7 +10,7 @@ import cartes.Serviteur;
 */
 public class Tour {
 
-    private Joueur joueur; //à chaque tour, le joueur pioche 1 carte supplémentaire
+    private Joueur joueur; // à chaque tour, le joueur pioche 1 carte supplémentaire
     private int numeroTour;
     private Combat combat;
 
@@ -50,10 +50,10 @@ public class Tour {
      */
     public void attaquerHero(Hero cible, int degats) {
         cible.recevoirDegats(degats);
-        System.out.println("💥 Le héros " + cible.getNom() + " subit " + degats + " dégâts. Il lui reste " + cible.getPointsDeVie() + " PV.");
+        System.out.println("Le héros " + cible.getNom() + " subit " + degats + " dégâts. Il lui reste " + cible.getPointsDeVie() + " PV.");
 
         if (cible.estMort()) {
-            System.out.println("🏆 Le héros " + cible.getNom() + " est mort. Fin de la partie !");
+            System.out.println(" Le héros " + cible.getNom() + " est mort. Fin de la partie !");
         }
     }
 }

@@ -10,6 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 // Import des classes à tester
 import cartes.Deck;
 import cartes.Serviteur;
+/**
+ * @author Aminata
+ */
 
 public class DeckTest {
     private Deck deck;

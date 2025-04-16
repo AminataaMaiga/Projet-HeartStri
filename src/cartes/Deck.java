@@ -1,11 +1,13 @@
 package cartes;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Random;
 
 /**
- * Représente un deck de cartes pour le jeu. Ce deck est capable de gérer un ensemble de serviteurs.
+ *Représente un deck de cartes pour le jeu. Ce deck est capable de gérer un ensemble de serviteurs.
+ * @author Aminata 
  */
 public class Deck {
     // Liste pour stocker les cartes du deck.
