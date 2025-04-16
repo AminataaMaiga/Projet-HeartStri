@@ -28,7 +28,7 @@ public class Combat {
             System.out.println("→ " + s2);
 
             if (s2.estMort()) {
-                System.out.println("💀 " + s2.getNom() + " est mort. " + s1.getNom() + " remporte le combat !");
+                System.out.println( s2.getNom() + " est mort. " + s1.getNom() + " remporte le combat !");
                 break;
             }
 
@@ -47,7 +47,6 @@ public class Combat {
         System.out.println("\n Combat terminé.");
     }
 
-	    
 	    public void demarrerCombatJoueur() {
 	    	
 	    }
