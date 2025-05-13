@@ -22,8 +22,7 @@ public class Joueur {
     private Main main;          // Cartes en main : 3 pour le joueur1 et 4 pour le joueur2
     private Plateau plateau;    // Serviteurs invoqués
     private int mana = 1;
-    private int manaMax = 1;
-    
+    private int manaMax = 10;    
     //etape 3
     
     //un jourt a un ou  des cartes sort et armes , il peut, il ne peut avoir que une armes a la fois 
@@ -73,10 +72,9 @@ public class Joueur {
     }
 
     public void augmenterMana() {
-        if (manaMax < 10) {
-            manaMax++;
+        if (mana< manaMax) {
+            mana++;
         }
-        mana = manaMax;
     }
 
     public boolean peutInvoquer(Carte carte) {

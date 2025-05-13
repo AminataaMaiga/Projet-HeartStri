@@ -1,3 +1,4 @@
+
 // ===== TourDeJeu.java =====
 package jeu;
 
@@ -24,15 +25,21 @@ public class Tour {
      * Démarre un tour de jeu : incrémente le mana, pioche une carte
      */
     public void demarrerTour() {
-        System.out.println("🔁 Tour " + numeroTour + " de " + joueur.getNom());
+    	System.out.println("Mana après tour : " + joueur.getMana());
+    	System.out.println("Nombre de cartes en main : " + joueur.getMain().taille());
+        System.out.println("Tour " + numeroTour + " de " + joueur.getNom());
         joueur.augmenterMana();
 
-        Carte piochee = joueur.getDeck().tirerCarteAleatoire();
-        if (piochee != null) {
-            joueur.getMain().ajouterCarte(piochee);
-            System.out.println(joueur.getNom() + " pioche : " + piochee.getNom());
+        if (joueur.getMain().taille() < 10) { // il Faut que la classe main soit faite pour savoir le joueur a combien de cartes en main 
+            Carte piochee = joueur.getDeck().tirerCarteAleatoire();
+            if (piochee != null) {
+                joueur.getMain().ajouterCarte(piochee);
+                System.out.println(joueur.getNom() + " pioche : " + piochee.getNom());
+            } else {
+                System.out.println(joueur.getNom() + " ne peut plus piocher, deck vide.");
+            }
         } else {
-            System.out.println(joueur.getNom() + " ne peut plus piocher, deck vide.");
+            System.out.println(joueur.getNom() + " ne peut pas piocher, main pleine !");
         }
 
         numeroTour++;
