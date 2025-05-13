@@ -24,7 +24,7 @@ public class Tour {
      * Démarre un tour de jeu : incrémente le mana, pioche une carte
      */
     public void demarrerTour() {
-        System.out.println("🔁 Tour " + numeroTour + " de " + joueur.getNom());
+        System.out.println("Tour " + numeroTour + " de " + joueur.getNom());
         joueur.augmenterMana();
 
         Carte piochee = joueur.getDeck().tirerCarteAleatoire();
