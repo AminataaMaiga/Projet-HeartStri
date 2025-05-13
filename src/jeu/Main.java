@@ -88,16 +88,5 @@ public class Main {
      * Retourne la liste des cartes dans la main.
      * @return Liste de cartes
      */
-    public List<Carte> getCartes() {
-        return cartes;
-    }
-
-    /**
-     * Affiche toutes les cartes présentes dans la main.
-     */
-    public void afficherMain() {
-        for (Carte c : cartes) {
-            System.out.println("");
-        }
-    }
+   
 }
