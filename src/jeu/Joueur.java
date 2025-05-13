@@ -90,7 +90,9 @@ public class Joueur {
              mana -= s.getMana();
              System.out.println(nom_joueur + " invoque " + s.getNom() + " !");
         	}
+        	else {
             System.out.println(nom_joueur + ": La carte "+ s.getNom() +" ne se trouve pas dans la main");
+        	}
         } else {
             System.out.println("Mana insuffisant pour invoquer " + s.getNom());
         }
@@ -99,4 +101,15 @@ public class Joueur {
     public boolean estMort() {
         return hero.estMort();
     }
+    
+    public void piocherCarte() {
+        Carte piochee = deck_joueur.tirerCarteAleatoire();
+        if (piochee != null) {
+            main.ajouterCarte(piochee);
+            System.out.println(nom_joueur + " pioche : " + piochee.getNom());
+        } else {
+            System.out.println("Deck vide, impossible de piocher.");
+        }
+    }
+
 }

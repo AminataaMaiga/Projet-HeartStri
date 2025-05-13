@@ -25,8 +25,6 @@ public class Tour {
      * Démarre un tour de jeu : incrémente le mana, pioche une carte
      */
     public void demarrerTour() {
-    	System.out.println("Mana après tour : " + joueur.getMana());
-    	System.out.println("Nombre de cartes en main : " + joueur.getMain().taille());
         System.out.println("Tour " + numeroTour + " de " + joueur.getNom());
         joueur.augmenterMana();
 
