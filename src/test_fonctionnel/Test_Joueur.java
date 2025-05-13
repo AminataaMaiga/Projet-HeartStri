@@ -19,7 +19,7 @@ public class Test_Joueur {
         joueur.piocherCarte();
         joueur.piocherCarte();
 
-        System.out.println("🖐 Cartes en main :");
+        System.out.println(" -Cartes en main :");
         joueur.getMain().afficherMain();
 
         // Invoquer une carte si possible
@@ -31,7 +31,7 @@ public class Test_Joueur {
         }
 
         // Affichage du plateau
-        System.out.println("🎴 Plateau du joueur :");
+        System.out.println("- Plateau du joueur :");
         joueur.getPlateau().afficherPlateau();
     }
 }
