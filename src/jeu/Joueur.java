@@ -3,6 +3,8 @@ package jeu;
 import cartes.Deck;
 import cartes.Carte;
 import cartes.Serviteur;
+import cartes.*;
+
 
 /**
  * Classe représentant un joueur dans le jeu HeartSTRI.
@@ -23,7 +25,9 @@ public class Joueur {
     private Plateau plateau;    // Serviteurs invoqués
     private int mana = 1;
     private int manaMax = 10;    
+    
     //etape 3
+    public  Arme armeEquipee;     
     
     //un jourt a un ou  des cartes sort et armes , il peut, il ne peut avoir que une armes a la fois 
     //par consequent lacer un sort , et une arme peut attaquer un heros ou un serviteur 
@@ -70,11 +74,15 @@ public class Joueur {
     public Hero getHero() {
         return hero;
     }
+    public Arme getArmeEquipee() {
+        return armeEquipee;
+    }
 
     public void augmenterMana() {
         if (mana< manaMax) {
             mana++;
         }
+       
     }
 
     public boolean peutInvoquer(Carte carte) {
@@ -111,5 +119,40 @@ public class Joueur {
             System.out.println("Deck vide, impossible de piocher.");
         }
     }
+    // Méthode pour équiper une arme
+    public void equiperArme(Arme arme) {
+        if (main.estDansMain(arme)) {
+            this.armeEquipee = arme;
+            main.retirerCarte(arme);
+            System.out.println(nom_joueur + " équipe l'arme : " + arme.getNom());
+        } else {
+            System.out.println("L'arme " + arme.getNom() + " n'est pas dans la main !");
+        }
+    }
 
+    // Méthode pour utiliser un sort
+    public void utiliserSort(Sort sort, Serviteur cible) {
+        if (main.estDansMain(sort) && mana >= sort.getMana()) {
+            sort.lancerSort(cible);
+            mana -= sort.getMana();
+            main.retirerCarte(sort);
+            System.out.println(nom_joueur + " utilise le sort : " + sort.getNom() + " sur " + cible.getNom());
+        } else if (mana < sort.getMana()) {
+            System.out.println("Mana insuffisant pour utiliser le sort : " + sort.getNom());
+        } else {
+            System.out.println("Le sort " + sort.getNom() + " n'est pas dans la main !");
+        }
+    }
+
+    // Méthode pour attaquer un héros avec une arme
+    public void attaquerHeroAvecArme(Hero cible) {
+        if (armeEquipee != null) {
+            cible.recevoirDegats(armeEquipee.getDegats());
+            System.out.println(nom_joueur + " attaque le héros " + cible.getNom() + " avec l'arme " + armeEquipee.getNom());
+            armeEquipee = null; // L'arme est détruite après utilisation
+        } else {
+            System.out.println("Aucune arme équipée pour attaquer !");
+        }
+    }
+   
 }
