@@ -23,11 +23,10 @@ public class Joueur {
     private Hero hero;          // Le héros associé au joueur
     private Main main;          // Cartes en main : 3 pour le joueur1 et 4 pour le joueur2
     private Plateau plateau;    // Serviteurs invoqués
-    private int mana = 1;
-    private int manaMax = 10;    
     
     //etape 3
-    public  Arme armeEquipee;     
+    public  Arme armeEquipee;
+	public Object getHero;     
     
     //un jourt a un ou  des cartes sort et armes , il peut, il ne peut avoir que une armes a la fois 
     //par consequent lacer un sort , et une arme peut attaquer un heros ou un serviteur 
@@ -51,14 +50,6 @@ public class Joueur {
         return nom_joueur;
     }
 
-    public int getMana() {
-        return mana;
-    }
-
-    public int getManaMax() {
-        return manaMax;
-    }
-
     public Deck getDeck() {
         return deck_joueur;
     }
@@ -78,24 +69,19 @@ public class Joueur {
         return armeEquipee;
     }
 
-    public void augmenterMana() {
-        if (mana< manaMax) {
-            mana++;
-        }
-       
+    @Override
+    public String toString() {
+        return nom_joueur + " | Héros: " + hero + " | Cartes en main: " + main.taille();
     }
 
-    public boolean peutInvoquer(Carte carte) {
-        return carte.getMana() <= mana;
-    }
 
     public void invoquerServiteur(Serviteur s) {
-        if (peutInvoquer(s)) {
+        if (hero.peutInvoquer(s)) {
         	if(main.estDansMain(s))
         	{
     		 main.retirerCarte(s);
              plateau.ajouterServiteur(s);
-             mana -= s.getMana();
+             hero.consommerMana(s.getMana());
              System.out.println(nom_joueur + " invoque " + s.getNom() + " !");
         	}
         	else {
@@ -132,12 +118,12 @@ public class Joueur {
 
     // Méthode pour utiliser un sort
     public void utiliserSort(Sort sort, Serviteur cible) {
-        if (main.estDansMain(sort) && mana >= sort.getMana()) {
+        if (main.estDansMain(sort) && hero.getMana() >= sort.getMana()) {
             sort.lancerSort(cible);
-            mana -= sort.getMana();
+            hero.consommerMana(sort.getMana());
             main.retirerCarte(sort);
             System.out.println(nom_joueur + " utilise le sort : " + sort.getNom() + " sur " + cible.getNom());
-        } else if (mana < sort.getMana()) {
+        } else if (hero.getMana() < sort.getMana()) {
             System.out.println("Mana insuffisant pour utiliser le sort : " + sort.getNom());
         } else {
             System.out.println("Le sort " + sort.getNom() + " n'est pas dans la main !");

@@ -26,9 +26,9 @@ public class Tour {
      */
     public void demarrerTour() {
         System.out.println("Tour " + numeroTour + " de " + joueur.getNom());
-        joueur.augmenterMana();
+        joueur.getHero().augmenterMana();
 
-        if (joueur.getMain().taille() < joueur.getManaMax()) { // il Faut que la classe main soit faite pour savoir le joueur a combien de cartes en main 
+        if (joueur.getMain().taille() < joueur.getHero().getManaMax()) { // il Faut que la classe main soit faite pour savoir le joueur a combien de cartes en main 
             Carte piochee = joueur.getDeck().tirerCarteAleatoire();
             if (piochee != null) {
                 joueur.getMain().ajouterCarte(piochee);

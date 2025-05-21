@@ -40,7 +40,7 @@ public class Partie {
 
         // Invocation automatique d'un serviteur (si possible)
         for (Carte c : actif.getMain().getCartes()) {
-            if (c instanceof Serviteur && actif.peutInvoquer(c)) {
+            if (c instanceof Serviteur && actif.getHero().peutInvoquer(c)) {
                 actif.invoquerServiteur((Serviteur) c);
                 break; // On en invoque qu’un pour simplifier
             }

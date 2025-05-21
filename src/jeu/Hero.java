@@ -1,5 +1,7 @@
 package jeu;
 
+import cartes.Carte;
+
 /**
  *
  * @author Aminata 
@@ -13,6 +15,8 @@ package jeu;
 public class Hero {
     private String nom;
     private int pointsDeVie;
+    private int manaHero=1;
+    private int manaMax;
     //private String pouvoirBase; on le gère pas à l'étape 2
     
 
@@ -23,18 +27,41 @@ public class Hero {
      
      */
 
-    public Hero(String nom, String pouvoirBase) {
+    public Hero(String nom, String pouvoirBase, int mana) {
         this.nom = nom;
         this.pointsDeVie = 30;
+        this.manaHero=mana;
         //this.pouvoirBase = pouvoirBase;
     }
-    
+    public int getMana() {
+        return manaHero;
+    }
+
+    public int getManaMax() {
+        return manaMax;
+    }
     public String getNom() {
     	return nom;
     }
  
     public int getPointsDeVie() {
     	return pointsDeVie;
+    }
+    
+    public void augmenterMana() {
+        if (manaHero< manaMax) {
+            manaHero++;
+        }
+       
+    }
+
+    @Override
+    public String toString() {
+        return nom + " [PV: " + pointsDeVie + ", Mana: " + manaHero + "/" + manaMax + "]";
+    }
+
+    public boolean peutInvoquer(Carte carte) {
+        return carte.getMana() <= manaHero;
     }
 
     /**
@@ -54,4 +81,11 @@ public class Hero {
     public boolean estMort() {
         return pointsDeVie <= 0;
     }
+    
+    //Fonction décrémentant le mana du hero
+    public void consommerMana(int montant) {
+        manaHero -= montant;
+        if (manaHero < 0) manaHero = 0;
+    }
+
 }

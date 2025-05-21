@@ -76,7 +76,7 @@ public class Combat {
 	// Tour d'un joueur
     private void effectuerTour(Joueur attaquant, Joueur defenseur) {
         System.out.println("\nTour de " + attaquant.getNom());
-        attaquant.augmenterMana();
+        attaquant.getHero().augmenterMana();
         attaquant.piocherCarte();
 
         // Exemple : utiliser un sort si disponible
@@ -86,7 +86,7 @@ public class Combat {
                                          .findFirst()
                                          .orElse(null);
 
-            if (sort != null && attaquant.getMana() >= sort.getMana()) {
+            if (sort != null && attaquant.getHero().getMana() >= sort.getMana()) {
                 attaquant.utiliserSort(sort, defenseur.getPlateau().getServiteurs().get(0));; // Cible un serviteur
             }
         }
