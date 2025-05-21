@@ -16,26 +16,26 @@ public class JoueurTest {
         Deck deck = new Deck();
         s1 = new Serviteur("Orc Guerrier", 2, 3, 4, "");
         deck.ajouterCarte(s1);
-        Hero hero = new Hero("Guerrier","Armure");
+        Hero hero = new Hero("Guerrier","Armure",1);
         joueur = new Joueur("Fatoumata", deck, hero);
         joueur.getMain().ajouterCarte(s1);
     }
 
     @Test
     void testAugmenterMana() {
-        joueur.augmenterMana();
-        assertEquals(2, joueur.getMana());
-        joueur.augmenterMana();
-        assertEquals(3, joueur.getMana());
+        joueur.getHero().augmenterMana();
+        assertEquals(2, joueur.getHero().getMana());
+        joueur.getHero().augmenterMana();
+        assertEquals(3, joueur.getHero().getMana());
     }
 
     @Test
     void testInvoquerServiteurAvecSuffisantMana() {
-        joueur.augmenterMana(); // mana = 2
+        joueur.getHero().augmenterMana(); // mana = 2
         joueur.invoquerServiteur(s1);
         assertTrue(joueur.getPlateau().getServiteurs().contains(s1));
         assertFalse(joueur.getMain().getCartes().contains(s1));
-        assertEquals(0, joueur.getMana());
+        assertEquals(0, joueur.getHero().getMana());
     }
 
     @Test

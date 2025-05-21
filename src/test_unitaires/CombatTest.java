@@ -17,8 +17,8 @@ public class CombatTest {
 		
 		Deck deck1 = new Deck();
         Deck deck2 = new Deck();
-        Hero hero1 = new Hero("Mage", "Boule de feu");
-        Hero hero2 = new Hero("Guerrier", "Cri de guerre");
+        Hero hero1 = new Hero("Mage", "Boule de feu",1);
+        Hero hero2 = new Hero("Guerrier", "Cri de guerre",1);
         Joueur joueur1 = new Joueur("Amayel", deck1, hero1);
         Joueur joueur2 = new Joueur("Rival", deck2, hero2);
 

@@ -11,11 +11,11 @@ public class Test_Joueur {
             deck.ajouterCarte(new Serviteur("Serviteur " + (i+1), 1 + i, 2, 4, ""));
         }
 
-        Hero hero = new Hero("Chasseur", "Tir explosif");
+        Hero hero = new Hero("Chasseur", "Tir explosif",1);
         Joueur joueur = new Joueur("Fatoumata", deck, hero);
 
         // Simulation d’un tour
-        joueur.augmenterMana();
+        joueur.getHero().augmenterMana();
         joueur.piocherCarte();
         joueur.piocherCarte();
 

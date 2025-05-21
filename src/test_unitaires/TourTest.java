@@ -13,13 +13,13 @@ public class TourTest {
     public void testDemarrerTour() {
         Deck deck = new Deck();
         deck.genererDeckAleatoire(10);
-        Hero hero = new Hero("Mage", "");
+        Hero hero = new Hero("Mage", " ",1);
         Joueur joueur = new Joueur("Aminata", deck, hero);
 
         Tour tour = new Tour(joueur);
         tour.demarrerTour();
 
-        assertEquals(2, joueur.getMana()); // après 1 tour
+        assertEquals(9, joueur.getHero().getMana()); // après 1 tour
         assertTrue(joueur.getMain().taille() > 0);
     }
 }
