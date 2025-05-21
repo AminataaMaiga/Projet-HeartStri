@@ -13,7 +13,7 @@ package jeu;
 public class Hero {
     private String nom;
     private int pointsDeVie;
-    private String pouvoirBase;
+    //private String pouvoirBase; on le gère pas à l'étape 2
     
 
     /**
@@ -26,7 +26,7 @@ public class Hero {
     public Hero(String nom, String pouvoirBase) {
         this.nom = nom;
         this.pointsDeVie = 30;
-        this.pouvoirBase = pouvoirBase;
+        //this.pouvoirBase = pouvoirBase;
     }
     
     public String getNom() {

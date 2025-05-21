@@ -10,7 +10,7 @@ public class Serviteur extends Carte{
 	
 	protected int point_attaque;
 	private int point_de_vie;
-	private String action_speciale;
+	private String action_speciale;// pas à traiter au niveau de l'étape 1
 	
 	
 	/**

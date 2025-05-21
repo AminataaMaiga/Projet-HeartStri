@@ -27,8 +27,9 @@ public class Plateau {
     }
 
     public void afficherPlateau() {
+    	System.out.println("Vous disposez de : \n");
         for (Serviteur s : serviteurs) {
-            System.out.println("⚔️ " + s);
+            System.out.println(" -" + s);
         }
     }
 }

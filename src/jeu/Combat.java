@@ -16,9 +16,9 @@ public class Combat {
 	     */
 	public void demarrerCombatServiteur(Serviteur s1, Serviteur s2) {
         int tour = 1;
-        System.out.println("⚔ Début du combat entre :");
-        System.out.println("➡ " + s1.getNom());
-        System.out.println("➡ " + s2.getNom());
+        System.out.println(" Début du combat entre :");
+        System.out.println("Serviteur " + s1.getNom());
+        System.out.println("Serviteur " + s2.getNom());
 
         while (!s1.estMort() && !s2.estMort()) {
             System.out.println("\n----- Tour " + tour + " -----");
@@ -46,10 +46,6 @@ public class Combat {
 
         System.out.println("\n Combat terminé.");
     }
-
-	    public void demarrerCombatJoueur() {
-	    	
-	    }
 	    
 	}
 
