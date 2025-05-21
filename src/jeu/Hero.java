@@ -13,26 +13,27 @@ import cartes.Carte;
 //etqpe 4 --> pouvoirs speciaux
 
 public class Hero {
-    private String nom;
     private int pointsDeVie;
     private int manaHero=1;
-    private int manaMax;
-    //private String pouvoirBase; on le gère pas à l'étape 2
-    
+    private int manaMax=10;
+    private HeroType typeHero;
+ 
 
     /**
      * Constructeur du héros.
      * @param nom Le nom du héros (ex : "Mage", "Guerrier")
      * @param pouvoirBase Une description textuelle du pouvoir spécial du héros
-     
+     * Constructeur du héros.
+     * @param typeHero Le type de héros (ex: MAGE, PALADIN, etc.)
+     * @param mana Le mana de départ
      */
-
-    public Hero(String nom, String pouvoirBase, int mana) {
-        this.nom = nom;
+    public Hero(HeroType typeHero) {
+        this.typeHero = typeHero;
         this.pointsDeVie = 30;
-        this.manaHero=mana;
-        //this.pouvoirBase = pouvoirBase;
     }
+    
+    
+    
     public int getMana() {
         return manaHero;
     }
@@ -41,7 +42,7 @@ public class Hero {
         return manaMax;
     }
     public String getNom() {
-    	return nom;
+        return typeHero.name(); // Exemple : "MAGE"
     }
  
     public int getPointsDeVie() {
@@ -51,13 +52,17 @@ public class Hero {
     public void augmenterMana() {
         if (manaHero< manaMax) {
             manaHero++;
-        }
-       
+        }   
+    }
+    
+
+    public String getPouvoirHeroique() {
+    	return typeHero.getPouvoir();
     }
 
     @Override
     public String toString() {
-        return nom + " [PV: " + pointsDeVie + ", Mana: " + manaHero + "/" + manaMax + "]";
+        return getNom() + " [PV: " + pointsDeVie + ", Mana: " + manaHero + "]";
     }
 
     public boolean peutInvoquer(Carte carte) {
@@ -87,5 +92,12 @@ public class Hero {
         manaHero -= montant;
         if (manaHero < 0) manaHero = 0;
     }
+    
+    public void soigner(int montant) {
+        this.pointsDeVie += montant;
+        if (pointsDeVie > 30) pointsDeVie = 30;
+    }
+
+    
 
 }

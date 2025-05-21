@@ -1,4 +1,6 @@
 package jeu;
+import java.util.Scanner;
+
 import cartes.*;
 
 /**
@@ -48,56 +50,68 @@ public class Combat {
     }
 
 
-	public String simulerCombat(Joueur joueur1, Joueur joueur2) {
-        int scoreJoueur1 = 0;
-        int scoreJoueur2 = 0;
-
-        // Comparer les cartes une par une
-        for (int i = 0; i < Math.min(joueur1.getMain().taille(), joueur2.getMain().taille()); i++) {
-            Carte carteJoueur1 = joueur1.getMain().getCartes().get(i);
-            Carte carteJoueur2 = joueur2.getMain().getCartes().get(i);
-
-            if (carteJoueur1.getMana() > carteJoueur2.getMana()) {
-                scoreJoueur1++;
-            } else if (carteJoueur1.getMana() < carteJoueur2.getMana()) {
-                scoreJoueur2++;
-            }
-        }
-
-        // Déterminer le vainqueur
-        if (scoreJoueur1 > scoreJoueur2) {
-            return joueur1.getNom() + " remporte le combat !";
-        } else if (scoreJoueur1 < scoreJoueur2) {
-            return joueur2.getNom() + " remporte le combat !";
-        } else {
-            return "Le combat est un match nul !";
-        }
+	public void simulerCombat(Joueur joueur1, Joueur joueur2) {
+		boolean tour=true;
+		
+		while(!joueur1.estMort()&&!joueur2.estMort()){
+			
+			if(tour) {
+				Tour(joueur1,joueur2);
+				this.afficher_etat(joueur1);
+				tour=false;
+				joueur1.getHero().augmenterMana();
+				joueur1.piocherCarte();
+			}else {
+				Tour(joueur2,joueur1);
+				this.afficher_etat(joueur2);
+				tour=true;
+				joueur2.getHero().augmenterMana();
+				joueur2.piocherCarte();
+			}
+			
+		}
+		
+		if(joueur1.estMort()) {
+			System.out.println("Felicitaiton "+ joueur2.getNom() +", vous avez remporter la partie !! :) ");
+		}
+		else {
+			System.out.println("Felicitaiton "+ joueur1.getNom() +", vous avez remporter la partie !! :) ");
+		}
+        
     }
-	// Tour d'un joueur
-    private void effectuerTour(Joueur attaquant, Joueur defenseur) {
-        System.out.println("\nTour de " + attaquant.getNom());
-        attaquant.getHero().augmenterMana();
-        attaquant.piocherCarte();
+	
+	public void Tour(Joueur j,Joueur j2) {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("\n=== Tour de " + j.getNom() + " ===");
+		System.out.println("Héros : " + j.getHero());
+		j.getMain().afficherMain();
+		
 
-        // Exemple : utiliser un sort si disponible
-        if (attaquant.getMain().taille() > 0) {
-            Sort sort = (Sort) attaquant.getMain().getCartes().stream()
-                                         .filter(carte -> carte instanceof Sort)
-                                         .findFirst()
-                                         .orElse(null);
+		System.out.println("Que voulez-vous faire ? : \n");
+		System.out.println("0 - Jouer une carte");
+		System.out.println("1 - Passer le tour\n");
 
-            if (sort != null && attaquant.getHero().getMana() >= sort.getMana()) {
-                attaquant.utiliserSort(sort, defenseur.getPlateau().getServiteurs().get(0));; // Cible un serviteur
-            }
-        }
-
-        // Exemple : attaquer avec une arme
-        if (attaquant.getHero().getPointsDeVie() > 0 && attaquant.getArmeEquipee() != null) {
-            attaquant.attaquerHeroAvecArme(defenseur.getHero());
-        }
-          
-        }
-    }
+		System.out.println("");
+		int choix=scanner.nextInt();
+		if(choix==0) {
+			System.out.println("Veuillez choisir la carte de votre main que vous voulez jouer \n");
+	    	int carte_a_jouer= scanner.nextInt();
+	    	Carte c=j.getMain().getCarte(carte_a_jouer);
+	    	if (c != null) {
+	    	    j.jouerCarte(c, j2);}
+		}
+		
+	}
+	
+	public void afficher_etat(Joueur j) {
+		System.out.println("\nFin du tour de " + j.getNom());
+		System.out.println("→ État du héros : " + j.getHero().toString());
+		System.out.println("→ Cartes restantes : " + j.getMain().taille()+"\n");
+	}
+	
+	
+	
+}
 
 
 

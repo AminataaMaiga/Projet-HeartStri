@@ -10,6 +10,7 @@ import cartes.*;
 public class Main {
     private List<Carte> cartesEnMain;
 
+
     public Main() {
         cartesEnMain= new ArrayList<>();
     }
@@ -25,6 +26,7 @@ public class Main {
          }
    
     }
+ 
     
     /**
      * Retire une carte de la main.
@@ -72,21 +74,43 @@ public class Main {
     public List<Carte> getCartes() {
         return cartesEnMain;
     }
+    
+    
+    /**
+     * Retourne la carte à l'indice donné dans la main.
+     * @param index position de la carte (0-based)
+     * @return la carte à cette position, ou null si l'indice est invalide
+     */
+    public Carte getCarte(int index) {
+        if (index >= 1 && index <= cartesEnMain.size()) {
+            return cartesEnMain.get(index - 1);
+        } else {
+            System.out.println(" Indice invalide : " + index);
+            return null;
+        }
+    }
+
+    
+    public int nombreCarteMain() {
+    	return this.cartesEnMain.size();
+    }
 
     /**
      * Affiche les cartes en main.
      */
     
     public void afficherMain() {
+    	if(estVide()) {
+    		System.out.println("La main est vide");
+    	}else {
         System.out.println("Cartes en main :");
+        int i=1;
         for (Carte c : cartesEnMain) {
-            System.out.println("- " + c.getNom() + " (Mana : " + c.getMana() + ")");
+        	String type = (c instanceof Sort) ? "[Sort]" : (c instanceof Arme) ? "[Arme]" : "[Serviteur]";
+            System.out.println(i+ "- "+ type +" " + c.toString());
+            i++;
         }
+    	}
     }
  
-    /**
-     * Retourne la liste des cartes dans la main.
-     * @return Liste de cartes
-     */
-   
 }

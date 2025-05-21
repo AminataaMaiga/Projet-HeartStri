@@ -9,7 +9,7 @@ public class Carte {
 	private String nom;
 	private int mana;
 	
-	public Carte(String n,int m) {
+	protected Carte(String n,int m) {
 		nom=n;
 		mana=m;
 	}

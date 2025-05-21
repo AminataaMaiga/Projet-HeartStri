@@ -1,19 +1,31 @@
 package cartes;
 
 public class Arme extends Carte {
-	 private int degats; // Dégâts infligés par l'arme
+	 private int nbUtilisation;
+	 private TypeArme type;
 
-	public Arme(String nom, int mana, int degats) {
-		super(nom, mana); // Appelle le constructeur de la classe Carte
-        this.degats = degats;
-	}
-	/**
-     * Retourne les dégâts de l'arme.
-     * 
-     * @return Le nombre de dégâts infligés par l'arme.
-     */
-    public int getDegats() {
-        return degats;
-    }
+	    public Arme( int mana, int nbUtilisation, TypeArme type) {
+	        super(type.getNom(), 0);
+	        this.nbUtilisation = nbUtilisation;
+	        this.type = type;
+	    }
+
+	    public String getEffetSpecial() {
+	        return type.getEffetSpecial();
+	    }
+
+	    @Override
+	    public String toString() {
+	        return getNom() + " [Mana: " + getMana() + ", ATK: " + type.getdegat() +
+	               ", Utilisations: " + nbUtilisation + ", Spé: " + type.getEffetSpecial() + "]";
+	    }
+	    
+	    public TypeArme getTypeArme(){
+	    	return type;
+	    }
+	    
+	    public void setnbutilisation() {
+	    	this.nbUtilisation--;
+	    }
 
 }
