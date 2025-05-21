@@ -46,7 +46,58 @@ public class Combat {
 
         System.out.println("\n Combat terminé.");
     }
-	    
-	}
+
+
+	public String simulerCombat(Joueur joueur1, Joueur joueur2) {
+        int scoreJoueur1 = 0;
+        int scoreJoueur2 = 0;
+
+        // Comparer les cartes une par une
+        for (int i = 0; i < Math.min(joueur1.getMain().taille(), joueur2.getMain().taille()); i++) {
+            Carte carteJoueur1 = joueur1.getMain().getCartes().get(i);
+            Carte carteJoueur2 = joueur2.getMain().getCartes().get(i);
+
+            if (carteJoueur1.getMana() > carteJoueur2.getMana()) {
+                scoreJoueur1++;
+            } else if (carteJoueur1.getMana() < carteJoueur2.getMana()) {
+                scoreJoueur2++;
+            }
+        }
+
+        // Déterminer le vainqueur
+        if (scoreJoueur1 > scoreJoueur2) {
+            return joueur1.getNom() + " remporte le combat !";
+        } else if (scoreJoueur1 < scoreJoueur2) {
+            return joueur2.getNom() + " remporte le combat !";
+        } else {
+            return "Le combat est un match nul !";
+        }
+    }
+	// Tour d'un joueur
+    private void effectuerTour(Joueur attaquant, Joueur defenseur) {
+        System.out.println("\nTour de " + attaquant.getNom());
+        attaquant.augmenterMana();
+        attaquant.piocherCarte();
+
+        // Exemple : utiliser un sort si disponible
+        if (attaquant.getMain().taille() > 0) {
+            Sort sort = (Sort) attaquant.getMain().getCartes().stream()
+                                         .filter(carte -> carte instanceof Sort)
+                                         .findFirst()
+                                         .orElse(null);
+
+            if (sort != null && attaquant.getMana() >= sort.getMana()) {
+                attaquant.utiliserSort(sort, defenseur.getPlateau().getServiteurs().get(0));; // Cible un serviteur
+            }
+        }
+
+        // Exemple : attaquer avec une arme
+        if (attaquant.getHero().getPointsDeVie() > 0 && attaquant.getArmeEquipee() != null) {
+            attaquant.attaquerHeroAvecArme(defenseur.getHero());
+        }
+          
+        }
+    }
+
 
 
