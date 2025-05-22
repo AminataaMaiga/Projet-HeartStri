@@ -3,7 +3,7 @@ package cartes;
 /**
  * 
  * Classe abstraite représentant une carte générique dans le jeu.
- * C’est la superclasse de toutes les cartes : Serviteur, Arme, Sort, etc.
+ * C’est la superclasse de toutes les cartes : Serviteur, Arme, Sort.
  * Elle contient les attributs communs : nom de la carte et coût en mana.
  * @author Fatoumata
  */
@@ -33,7 +33,7 @@ public abstract class Carte {
 		return mana;
 	}
 
-	 public abstract String toString(); // ou autre méthode utile à forcer dans les sous-classes
+	 public abstract String toString(); // ou autre méthode utile pour l'affichage a redefinir dans les classe filles 
 	
 }
 

@@ -4,16 +4,21 @@ import cartes.Serviteur;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe representant le plateau d'un joeur, c'est a dire l'ensenble des cartes de type serviteur que il a invoquer 
+ * @author fatoumata
+ */
 public class Plateau {
-    private List<Serviteur> cartesActives;//Carte serviteur invoquer sur le plateau 
+	//Carte invoquer sur le plateau 
 
+    private List<Serviteur> cartesActives;
     public Plateau() {
         this.cartesActives = new ArrayList<>();
     }
 
     /**|
      * 
-     * @param s
+     * @param s : le serviteur que l'on souhaite ajouter au plateau 
      */
     public void ajouterServiteur(Serviteur s) {
         if (cartesActives.size() < 3) { // Limite de 7 serviteurs sur le plateau, comme dans Hearthstone
@@ -25,23 +30,22 @@ public class Plateau {
     }
     /**
      * 
-     * @param s
+     * @param s : le serviteur que l'on souhaite retirer du du plateau 
      */
     public void retirerServiteur(Serviteur s) {
         cartesActives.remove(s);
     }
     /**
      * 
-     * @return
+     * @return la liste de cartes de type serviteurs present sur le plateau
      */
     public List<Serviteur> getServiteurs() {
         return cartesActives;
     }
     
     /**
-     * 
+     * @return fait un jolie affichage du plateau du joueur 
      */
-  
     public void afficherPlateau() {
         if (cartesActives.isEmpty()) {
             System.out.println("→ Aucun serviteur sur le plateau.");
@@ -49,8 +53,6 @@ public class Plateau {
         	System.out.println("→ Serviteurs sur le plateau :");
             for (int i = 0; i < cartesActives.size(); i++) {
                 System.out.println((i + 1) + " - " + cartesActives.get(i));
-            }
-        }
-    }
+            }}}
 
 }

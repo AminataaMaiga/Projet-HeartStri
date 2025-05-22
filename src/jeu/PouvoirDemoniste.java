@@ -3,6 +3,9 @@ package jeu;
 import cartes.Carte;
 import cartes.*;
 
+/**
+ * @author Aminata 
+ */
 public class PouvoirDemoniste implements PouvoirHeroique{
 	
 	
@@ -20,7 +23,6 @@ public class PouvoirDemoniste implements PouvoirHeroique{
 
 	        if(lanceur.getDeck().existeServiteur())
 	        {
-		        // Pioche d’une carte
 		        Carte piochee = lanceur.getDeck().tirerCarteAleatoire();
 		        while(!(piochee instanceof Serviteur)) {
 		        	lanceur.getDeck().ajouterCarte(piochee);
@@ -32,7 +34,7 @@ public class PouvoirDemoniste implements PouvoirHeroique{
 		            } else {
 		                System.out.println("La Main pleine ! La carte piochée est défaussée.");
 		            }
-		        // Marquer le pouvoir comme utilisé
+		        // on marque le pouvoir comme utilisé
 		        lanceur.getHero().setPouvoirHeroique();
 	        }else {
 	        	System.out.println("Le deck ne contient pas de serviteur , dommage !!");
@@ -43,11 +45,8 @@ public class PouvoirDemoniste implements PouvoirHeroique{
 	@Override
 	public void DescriptionPouvoir() {
 		System.out.println("++++++ Je serai votre cauchemar ! ++++++");
-		System.out.println("L’activation du pouvoir héroïque du démoniste permet de piocher une carte en échange de 2 points de vie.");
-		
-		
-	}
-
+		System.out.println("L’activation du pouvoir héroïque du démoniste permet de piocher une carte en échange de 2 points de vie.\n");}
+	
 	@Override
 	public Object choisirCible(Joueur lanceur, Joueur adversaire) {
 		return null;

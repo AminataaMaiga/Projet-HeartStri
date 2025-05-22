@@ -9,7 +9,7 @@ import java.util.Random;
  * Elle sert à initialiser les decks des joueurs ou le pool de cartes disponible.
  * Fournit des méthodes pour créer des serviteurs, sorts et armes de manière aléatoire.
  * 
- * @author fatimata
+ * @author fatoumata
  */
 public class CarteFactory {
 
@@ -49,12 +49,11 @@ public class CarteFactory {
         return new Serviteur(type);
     }
 
+    
     /**
      * Génère un sort aléatoire avec un coût en mana compris entre 1 et 3.
      *
      */
-    
-
     public static Sort genererSortAleatoire() {
         TypeSort[] types = TypeSort.values();
         TypeSort type = types[rand.nextInt(types.length)];

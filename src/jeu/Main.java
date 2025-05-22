@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import cartes.*;
 /**
+ * Classe represenant les cartes dans la main d'un joueur au cour du jeu  
  * @author Amayel
  */
 
@@ -23,10 +24,7 @@ public class Main {
          } else {
              System.out.println("La main est pleine ! Impossible d'ajouter la carte : " + c.getNom());
          }
-   
     }
- 
-    
     /**
      * Retire une carte de la main.
      * @param c La carte à retirer.
@@ -35,7 +33,6 @@ public class Main {
     public void retirerCarte(Carte c) {
     	cartesEnMain.remove(c);
     }
-    
     
     /**
      * Vérifie si une carte est présente dans la main.
@@ -74,7 +71,6 @@ public class Main {
         return cartesEnMain;
     }
     
-    
     /**
      * Retourne la carte à l'indice donné dans la main.
      * @param index position de la carte (0-based)
@@ -86,18 +82,14 @@ public class Main {
         } else {
             System.out.println(" Indice invalide : " + index);
             return null;
-        }
-    }
-
+        } }
     
     public int nombreCarteMain() {
-    	return this.cartesEnMain.size();
-    }
+    	return this.cartesEnMain.size();}
 
     /**
      * Affiche les cartes en main.
      */
-    
     public void afficherMain() {
     	if(estVide()) {
     		System.out.println("→ Votre main est vide.");
@@ -107,9 +99,7 @@ public class Main {
                 Carte c = cartesEnMain.get(i);
                 String type = (c instanceof Sort) ? "[Sort]" : (c instanceof Arme) ? "[Arme]" : "[Serviteur]";
                 System.out.printf("   %d - %s %s%n", i + 1, type, c);
-            }
-    	}
-    }
+            }}}
     /**
      * Récupère uniquement les cartes de type Serviteur dans la main.
      * @return liste des serviteurs.
@@ -133,10 +123,8 @@ public class Main {
         for (Carte c : cartesEnMain) {
             if (c instanceof Sort) {
                 sorts.add(c);
-            }
-        }
-        return sorts;
-    }
+            }}
+        return sorts;}
 
     /**
      * Récupère uniquement les cartes de type Arme dans la main.
@@ -147,10 +135,8 @@ public class Main {
         for (Carte c : cartesEnMain) {
             if (c instanceof Arme) {
                 armes.add(c);
-            }
-        }
-        return armes;
-    }
+            }}
+        return armes;}
 
  
 }

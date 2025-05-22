@@ -1,9 +1,7 @@
 package jeu;
 
-import cartes.Serviteur;
-
 /**
- * 
+ * @author 
  */
 public class PouvoirChasseur implements PouvoirHeroique {
 
@@ -24,13 +22,12 @@ public class PouvoirChasseur implements PouvoirHeroique {
 	@Override
 	public void DescriptionPouvoir() {
 		System.out.println("++++++ Que la traque commence  !++++++");
-		System.out.println("L’activation du pouvoir héroïque du chasseur inflige 2 point de dégâts au hero adverse.");
+		System.out.println("L’activation du pouvoir héroïque du chasseur inflige 2 point de dégâts au hero adverse.\n");
 		
 	}
 
 	@Override
 	public Object choisirCible(Joueur lanceur, Joueur adversaire) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

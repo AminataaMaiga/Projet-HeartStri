@@ -3,22 +3,17 @@ package jeu;
 import cartes.Carte;
 
 /**
- *
+ *La classe Hero permet d'observer les attribut et comportement d'un hero dans le projet Heartstri
  * @author Aminata 
  */
-
-//etape2 
-	//actuel; 
-	
-//etqpe 4 --> pouvoirs speciaux
-
 public class Hero {
     private int pointsDeVie;
     private int manaHero=1;
     private int manaMax=10;
     private HeroType typeHero;
     private PouvoirHeroique pouvoir;
-    private boolean pouvoirUtilise = false; // une seule fois par tour
+    ///Certain hero ne peuvent utiliser leur pouvoir heroique aue une fois par tour
+    private boolean pouvoirUtilise = false; 
 
  
 
@@ -37,6 +32,7 @@ public class Hero {
     }
     
     
+    ///Getter et setter sur les attributs de la classe 
     
     public int getMana() {
         return manaHero;
@@ -55,7 +51,7 @@ public class Hero {
     
     public void augmenterMana() {
         if (manaHero< manaMax) {
-            manaHero+=3;
+            manaHero+=1;
         }   
     }
     
@@ -76,6 +72,11 @@ public class Hero {
         return getNom() + " [PV: " + pointsDeVie + ", Mana: " + manaHero + "]";
     }
 
+    /**
+     * Fonction permettant de savoir si un hero peut invoquer une carte 
+     * @param carte
+     * @return
+     */
     public boolean peutInvoquer(Carte carte) {
         return carte.getMana() <= manaHero;
     }
@@ -98,21 +99,37 @@ public class Hero {
         return pointsDeVie <= 0;
     }
     
-    //Fonction décrémentant le mana du hero
+    /**
+     * Focntion qui permet de decrementer le mana d'un hero (suite a uen attaque ou a une invocation)
+     * @param montant
+     */
     public void consommerMana(int montant) {
         manaHero -= montant;
         if (manaHero < 0) manaHero = 0;
     }
     
+    
+    /**
+     * Fonction permettant de soigner un hero en augmentant son point de vie 
+     * @param montant
+     */
     public void soigner(int montant) {
         this.pointsDeVie += montant;
         if (pointsDeVie > 30) pointsDeVie = 30;
     }
     
+    /**
+     * Fonciton de sceller l'appel du pouvoir heroique d'un hero 
+     */
     public void setPouvoirHeroique() {
     	this.pouvoirUtilise=true;
     }
 
+    /**
+     * Initialise le pouvoir Heroique en focntion du tyoe d'hero 
+     * @param type
+     * @return
+     */
     private PouvoirHeroique initialiserPouvoir(HeroType type) {
         return switch (type) {
             case MAGE -> new PouvoirMage();

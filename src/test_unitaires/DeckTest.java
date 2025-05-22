@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // Import des classes à tester
 import cartes.Deck;
 import cartes.Serviteur;
+import cartes.TypeServiteur;
 /**
  * @author Aminata
  */
@@ -20,9 +21,9 @@ public class DeckTest {
     @BeforeEach
     void setUp() {
         deck = new Deck();  // Initialisation du deck avant chaque test
-        deck.ajouterCarte(new Serviteur("Serviteur 1", 1, 2, 3, "Aucune"));
-        deck.ajouterCarte(new Serviteur("Serviteur 2", 2, 3, 4, "Aucune"));
-        deck.ajouterCarte(new Serviteur("Serviteur 3", 3, 4, 5, "Aucune"));
+        deck.ajouterCarte(new Serviteur(TypeServiteur.DRAGON));
+        deck.ajouterCarte(new Serviteur(TypeServiteur.PACIFISTE));
+        deck.ajouterCarte(new Serviteur(TypeServiteur.ORC));
     }
 
     @Test
@@ -33,14 +34,10 @@ public class DeckTest {
 
     @Test
     void testAjouterCarte() {
-        Serviteur serviteur = new Serviteur("Nouveau Serviteur", 4, 5, 6, "Aucune");
+        Serviteur serviteur = new Serviteur(TypeServiteur.SPECTRE);
         deck.ajouterCarte(serviteur);
         assertTrue(deck.getCartes().contains(serviteur), "Le serviteur ajouté doit être présent dans le deck");
     }
 
-    @Test
-    void testGenererDeckAleatoire() {
-        deck.genererDeckAleatoire(5);
-        assertEquals(8, deck.getCartes().size(), "Le deck doit contenir 8 cartes après ajout de 5 cartes aléatoires");
-    }
+   
 }

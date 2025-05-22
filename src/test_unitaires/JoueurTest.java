@@ -14,10 +14,10 @@ public class JoueurTest {
     @BeforeEach
     void setUp() {
         Deck deck = new Deck();
-        s1 = new Serviteur("Orc Guerrier", 2, 3, 4, "");
+        s1 = new Serviteur(TypeServiteur.DRAGON);
         deck.ajouterCarte(s1);
-        Hero hero = new Hero("Guerrier","Armure",1);
-        joueur = new Joueur("Fatoumata", deck, hero);
+        Hero hero = new Hero(HeroType.GUERRIER);
+        joueur = new Joueur("Fatoumata", deck, hero,1);
         joueur.getMain().ajouterCarte(s1);
     }
 
@@ -32,7 +32,7 @@ public class JoueurTest {
     @Test
     void testInvoquerServiteurAvecSuffisantMana() {
         joueur.getHero().augmenterMana(); // mana = 2
-        joueur.invoquerServiteur(s1);
+        joueur.jouerCarte(s1, null);
         assertTrue(joueur.getPlateau().getServiteurs().contains(s1));
         assertFalse(joueur.getMain().getCartes().contains(s1));
         assertEquals(0, joueur.getHero().getMana());
@@ -40,7 +40,7 @@ public class JoueurTest {
 
     @Test
     void testInvoquerServiteurSansMana() {
-        joueur.invoquerServiteur(s1);
+        joueur.jouerCarte(s1,null);
         assertFalse(joueur.getPlateau().getServiteurs().contains(s1));
     }
 

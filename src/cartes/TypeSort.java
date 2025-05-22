@@ -34,6 +34,8 @@ public enum TypeSort {
         this.effet = effet;
         this.f=force;
     }
+    
+    ///Getter sur les differents attribut du sort 
 
     public String getNomCarte() {
         return nomCarte;

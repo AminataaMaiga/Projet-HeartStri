@@ -1,5 +1,8 @@
 package jeu;
 
+/**
+ * @author fatoumata
+ */
 public class PouvoirVoleur implements PouvoirHeroique {
 
 	@Override
@@ -26,7 +29,7 @@ public class PouvoirVoleur implements PouvoirHeroique {
 	@Override
 	public void DescriptionPouvoir() {
 		System.out.println("++++++ Surveillez vos arrières ! ++++++");
-		System.out.println("-> Inflige 5 point de vie au hero adverse");
+		System.out.println("-> Inflige 5 point de vie au hero adverse.\n");
 		
 	}
 

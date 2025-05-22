@@ -1,6 +1,8 @@
 package test_unitaires;
 
 import cartes.Serviteur;
+import cartes.TypeServiteur;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -15,8 +17,8 @@ public class ServiteurTest {
 
     @BeforeEach
     void setUp() {
-        s1 = new Serviteur("Orc", 2, 3, 5, "Charge");
-        s2 = new Serviteur("Troll", 3, 2, 4, "");
+        s1 = new Serviteur(TypeServiteur.DRAGON);
+        s2 = new Serviteur(TypeServiteur.SOLDAT);
     }
 
     @Test
@@ -54,12 +56,4 @@ public class ServiteurTest {
         assertTrue(s1.estMort());
     }
 
-    @Test
-    void testGenererServiteurAleatoire() {
-        Serviteur alea = Serviteur.genererServiteurAleatoire();
-        assertNotNull(alea);
-        assertTrue(alea.getMana() >= 1 && alea.getMana() <= 6);
-        assertTrue(alea.getPointAttaque() >= 1 && alea.getPointAttaque() <= 6);
-        assertTrue(alea.getPointVie() >= 2 && alea.getPointVie() <= 7);
-    }
 }

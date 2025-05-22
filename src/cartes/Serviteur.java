@@ -6,6 +6,7 @@ import jeu.Hero;
 import jeu.Joueur;
 
 /**
+ * Classe qui represente les cartes de types Serviteurs
  * @author Fatoumata
  */
 
@@ -91,11 +92,18 @@ public class Serviteur extends Carte{
 	    type.setpointAttaque(montant);
 	}
 	
+	/**
+	 * Fonctionnalite montrant le comportement d'un carte de type serviteur lors d'une attaque 
+	 * @param cible
+	 * @param lanceur
+	 * @param adversaire
+	 */
 	public void appliquerEffet(Object cible, Joueur lanceur, Joueur adversaire) {
 	    if (cible instanceof Serviteur s) {
 	        s.recevoircoup(this.getPointAttaque());
 	        System.out.println("Le serviteur " + s.getNom() + " a subi une attaque de " + this.getNom());
 	        this.recevoircoup(s.getPointAttaque());  // effet 
+	        //si le Serviteur adverse meurt il est retirer du plateau du jeu 
 	        if (s.estMort()) {
 	            adversaire.getPlateau().retirerServiteur(s);
 	        }

@@ -7,7 +7,7 @@ import java.util.Scanner;
 import cartes.Serviteur;
 
 /**
- * 
+ * @author Aminata 
  */
 public class PouvoirMage implements PouvoirHeroique {
 	
@@ -28,7 +28,7 @@ public class PouvoirMage implements PouvoirHeroique {
 	@Override
 	public void DescriptionPouvoir() {
 		System.out.println("++++++ Ma magie va vous mettre en pièces ! ++++++");
-		System.out.println("L’activation du pouvoir héroïque du mage inflige 1 point de dégâts à n’importe quelle cible de votre choix.");
+		System.out.println("L’activation du pouvoir héroïque du mage inflige 1 point de dégâts à n’importe quelle cible de votre choix.\n");
 		}
 	
 	@Override

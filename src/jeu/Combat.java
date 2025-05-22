@@ -11,12 +11,12 @@ import cartes.*;
 
 public class Combat {
 
-		/**
-	      Démarre le combat entre deux serviteurs, tour par tour.
-	     *Affiche l'état de chaque tour et arrête le combat dès qu'un serviteur meurt.
-	      @param s1 Serviteur 1
-	      @param s2 Serviteur 2
-	     */
+	/**
+      Démarre le combat entre deux serviteurs, tour par tour.
+     *Affiche l'état de chaque tour et arrête le combat dès qu'un serviteur meurt.
+      @param s1 Serviteur 1
+      @param s2 Serviteur 2
+     */
 	public void demarrerCombatServiteur(Serviteur s1, Serviteur s2) {
         int tour = 1;
         System.out.println(" Début du combat entre :");
@@ -51,12 +51,20 @@ public class Combat {
     }
 
 
+	/**
+	 * Foncteur permettant de lancer un combat entre 2 joueur , il prends en parametre 2 
+	 * joueurs et fait l'affichage de toutes les etapes de leurs affrontement
+	 * @param joueur1
+	 * @param joueur2
+	 */
 	public void simulerCombat(Joueur joueur1, Joueur joueur2) {
-		boolean tour=true;
+		boolean tour=true;//boolean pour savoir quel jouer doit jouer pour une manche donner (Le joueur1 est toujours le premier a jouer)
 		boolean tour1=true;//boolean pour indiquer que c'est le premier tour 
+		
 		joueur1.tirerCarteTour1();
 		joueur2.tirerCarteTour1();
 		int numTour=1;
+		System.out.println("------------- Début du combat -------------\n");
 		
 		while(!joueur1.estMort()&&!joueur2.estMort()){
 			if(tour) {
@@ -66,7 +74,7 @@ public class Combat {
 				}
 				Tour(joueur1,joueur2);
 				this.afficher_etat(joueur1);
-				tour=false;//Passe la main 
+				tour=false;//Passe la main au joueur suivant
 				joueur1.getHero().augmenterMana();
 			}else {
 				if (!tour1){
@@ -79,33 +87,39 @@ public class Combat {
 				tour1=false;
 				System.out.println("\n============================ FIN TOUR "+ numTour +" ============================");
 				numTour++;
-				
-			}
-			
+				}
 		}
-		
 		if(joueur1.estMort()) {
-			System.out.println("Felicitaiton "+ joueur2.getNom() +", vous avez remporter la partie !! :) ");
-		}
+			System.out.println("Felicitaiton "+ joueur2.getNom() +", vous avez remporter la partie !! :) ");}
 		else {
-			System.out.println("Felicitaiton "+ joueur1.getNom() +", vous avez remporter la partie !! :) ");
-		}
-        
+			System.out.println("Felicitaiton "+ joueur1.getNom() +", vous avez remporter la partie !! :) ");}  
     }
+	
+	
+	
+	
 	public static void ligneSeparatrice() {
 	    System.out.println("\n--------------------------------------------------\n");
 	}
 
-	public void Tour(Joueur j, Joueur j2) {
+	
+	
+	/**
+	 * Simule le deroulements d'un tour 
+	 * @param j
+	 * @param j2
+	 */
+	public void Tour(Joueur joueur1, Joueur joueur2) {
+		 
 	    Scanner scanner = new Scanner(System.in);
 	    boolean continuerTour = true;
 	    while (continuerTour) {
-	    	System.out.println("\n============== TOUR DE " + j.getNom().toUpperCase() + " ==============");
-	    	System.out.println("→ Héros : " + j.getHero());
+	    	System.out.println("\n============== TOUR DE " + joueur1.getNom().toUpperCase() + " ==============");
+	    	System.out.println("→ Héros : " + joueur1.getHero());
 	    	Combat.ligneSeparatrice();
 
-	    	j.getMain().afficherMain();
-	    	j.getPlateau().afficherPlateau();
+	    	joueur1.getMain().afficherMain();
+	    	joueur1.getPlateau().afficherPlateau();
 	    	Combat.ligneSeparatrice();
 
 
@@ -122,14 +136,14 @@ public class Combat {
 
 	        switch (choix) {
 	            case 0 -> {
-	                if (j.getMain().estVide()) {
-	                    System.out.println("Vous n'avez pas de carte en main !");
+	                if (joueur1.getMain().estVide()) {
+	                    System.out.println(" Vous n'avez pas de carte en main !");
 	                } else {
-	                    System.out.println("Choisissez une carte à jouer : ");
+	                    System.out.println(" Choisissez une carte à jouer : ");
 	                    int index = scanner.nextInt();
-	                    Carte carte = j.getMain().getCarte(index);
+	                    Carte carte = joueur1.getMain().getCarte(index);
 	                    if (carte != null) {
-	                        boolean success = j.jouerCarte(carte, j2);
+	                        boolean success = joueur1.jouerCarte(carte, joueur2);
 	                        if (success) {
 	                            continuerTour = false; 
 	                        }
@@ -137,18 +151,18 @@ public class Combat {
 	                }
 	            }
 	            case 1 -> {
-	                List<Serviteur> serviteurs = j.getPlateau().getServiteurs();
+	                List<Serviteur> serviteurs = joueur1.getPlateau().getServiteurs();
 	                if (serviteurs.isEmpty()) {
-	                    System.out.println("Aucun serviteur sur le plateau.");
+	                    System.out.println(" Aucun serviteur sur le plateau.");
 	                } else {
-	                    System.out.println("Choisissez un de vos serviteurs à utiliser pour attaquer :");
+	                    System.out.println(" Choisissez un de vos serviteurs à utiliser pour attaquer :");
 	                    for (int i = 0; i < serviteurs.size(); i++) {
 	                        System.out.println((i + 1) + " - " + serviteurs.get(i));
 	                    }
 	                    int choixServiteur = scanner.nextInt();
 	                    if (choixServiteur > 0 && choixServiteur <= serviteurs.size()) {
 	                        Serviteur s = serviteurs.get(choixServiteur - 1);
-	                        j.attaquer_serviteur(s, j2);
+	                        joueur1.attaquer_serviteur(s, joueur2);
 	                    } else {
 	                        System.out.println("Choix invalide.");
 	                    }
@@ -158,15 +172,16 @@ public class Combat {
 	            }
 	            case 2 ->{
 	            	//Utilisation du pouvoir heroique
-	            	if(j.getHero().getPouvoirutiliser()) {
-	            		System.out.println("Le pouvoir heroique de "+ j.getHero().getNom()+" a deja ete utiliser !");
+	            	if(joueur1.getHero().getPouvoirutiliser()) {
+	            		System.out.println("Le pouvoir heroique de "+ joueur1.getHero().getNom()+" a deja ete utiliser !");
 	            	}else {
-	            		Object cible = j.getHero().getPouvoirHeroique().choisirCible(j, j2);
-	                    j.getHero().getPouvoirHeroique().activerPouvoir(j, cible);
+	            		joueur1.getHero().getPouvoirHeroique().DescriptionPouvoir();
+	            		Object cible = joueur1.getHero().getPouvoirHeroique().choisirCible(joueur1, joueur2);
+	            		joueur1.getHero().getPouvoirHeroique().activerPouvoir(joueur1, cible);
 	            	}
 	            }
 	            case 3 -> continuerTour = false;
-	            default -> System.out.println("Entrée invalide, veuillez réessayer.");
+	            default -> System.out.println(" Entrée invalide, veuillez réessayer.");
 	        }
 	    }
 	}

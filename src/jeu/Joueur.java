@@ -18,6 +18,10 @@ import cartes.*;
  * Il possède un nom, un deck, un héros, une main de cartes,
  * un plateau (cartes en jeu) et une gestion du mana.
  * 
+ * Un joueur peut effectuer principalement 2 actions:
+ * -jouerCarte
+ * 
+ * 
  * @author Fatoumata
  */
 public class Joueur {
@@ -44,7 +48,7 @@ public class Joueur {
         this.ordre_joueur=numj;
         this.plateau=new Plateau();
     }
-
+    ///Getter et Setter sur la classe 
     public String getNom() {
         return nom_joueur;}
 
@@ -54,36 +58,40 @@ public class Joueur {
     public Main getMain() {
         return main;}
 
-
     public Hero getHero() {
         return hero;}
     
     public int getOrdre() {
-    	return this.ordre_joueur;
-    }
+    	return this.ordre_joueur;}
+    
     public boolean getTour1() {
-    	return this.tour1;
-    }
+    	return this.tour1;}
 
     @Override
     public String toString() {
         return nom_joueur + " | Héros: " + hero + " | Cartes en main: " + main.taille();}
 
+    /**
+     * Fonction permettant de savoir si un joueur est mort
+     * @return true si le hero du joueur n'as plus de poitn de vie 
+     */
     public boolean estMort() {
         return hero.estMort(); }
-    
-    
+  
+    /**
+     * Focntion permetant q un joueur d'utiliser une de ses cartes (serviteur/Sort/Arme) pour attaquer un autre joueur ,se soigner lui meme, etc..
+     * @param carte carte que le joeur veut utiliser 
+     * @param adversaire adversaire sur lequel il va potentiellemnent utiliser les effets de la carte 
+     * @return true si l'action a bien etet realiser et false sinon 
+     */
     public boolean jouerCarte(Carte carte, Joueur adversaire) {
         if (!main.estDansMain(carte)) {
             System.out.println(carte.getNom() + " n'est pas dans la main.");
-            return false;
-        }
+            return false;}
 
         if (hero.getMana() < carte.getMana()) {
             System.out.println("Mana insuffisant pour jouer " + carte.getNom());
-            return false;
-        }
-
+            return false;}
         if (carte instanceof Sort sort) {
             attaquer_sort(carte, adversaire);
         } else if (carte instanceof Arme arme) {
@@ -91,19 +99,15 @@ public class Joueur {
         } else if (carte instanceof Serviteur s) {
             plateau.ajouterServiteur(s);
             main.retirerCarte(s);
-            attaquer_serviteur(carte, adversaire);
-        }
-
+            attaquer_serviteur(carte, adversaire);}
         hero.consommerMana(carte.getMana());
-        return true;  // La carte a bien été jouée
-    }
-
+        // La carte a bien été jouée
+        return true;  }
     
     /**
-     * 
+     * Permet de lancer une carte de types sort avec les differents possibilites, represente la premiere etapes du processus  
      * @param carte
      * @param adversaire
-     * Permet.....
      */
     public void attaquer_sort(Carte carte, Joueur adversaire) {
         if (!(carte instanceof Sort sort)) {
@@ -127,8 +131,7 @@ public class Joueur {
             }
             default -> {
                 System.out.println("Type de sort non géré.");
-                return;}
-        }
+                return;}}
         // Choix utilisateur
         int choix = scanner.nextInt();
         Object cible = mapping.get(choix);
@@ -138,17 +141,17 @@ public class Joueur {
         }
         appliquer_sort(sort, cible, adversaire);}
 
-
-    public Plateau getPlateau() {
-        return plateau;
-    }
-    
-    
     /**
      * 
+     * @return le plateau du joueur ou se trouve tout les serviteurs qui on etet invoquer 
+     */
+    public Plateau getPlateau() {
+        return plateau;}
+    
+    /**
+     * Permet d'utiliser une carte de type arme, represente la premiere etapes du processus  
      * @param carte
      * @param adversaire
-     * Permet.....
      */
     public void attaquer_arme(Carte carte, Joueur adversaire) {
         if (!(carte instanceof Arme arme)) {
@@ -176,21 +179,18 @@ public class Joueur {
             return;
         }
 
-        appliquer_arme(arme, cible, adversaire);
-    }
+        appliquer_arme(arme, cible, adversaire);}
 
     /**
-     * 
+     * Permet d'utiliser une carte de type serviteurs, represente la premiere etapes du processus  
      * @param carte
      * @param adversaire
-     * Permet.....
      */
     public void attaquer_serviteur(Carte carte, Joueur adversaire) {
         if (!(carte instanceof Serviteur serviteur)) {
             System.out.println("La carte n'est pas un serviteur !");
             return;
         }
-
         Scanner scanner = new Scanner(System.in);
         Map<Integer, Object> mapping = new HashMap<>();
         int index = 1;
@@ -212,23 +212,22 @@ public class Joueur {
             return;
         }
 
-        appliquer_serviteur(serviteur, cible, adversaire);
-    }
+        appliquer_serviteur(serviteur, cible, adversaire); }
   
     
     private void appliquer_sort(Sort sort, Object cible, Joueur adversaire) {
-        sort.appliquerEffet(cible, this, adversaire);
-    }
-
+        sort.appliquerEffet(cible, this, adversaire);}
     
     private void appliquer_arme(Arme arme, Object cible,Joueur adversaire) {
-    	arme.appliquerEffet(cible, this, adversaire);
-    }
+    	arme.appliquerEffet(cible, this, adversaire);}
     
     private void appliquer_serviteur(Serviteur serviteur,Object cible,Joueur adversaire) {
-    	serviteur.appliquerEffet(cible, this, adversaire);
-    }
+    	serviteur.appliquerEffet(cible, this, adversaire);}
     
+    
+    /**
+     * Permet de faire les pioche des joueur pour le tour1
+     */
     public void tirerCarteTour1() {
     	if(this.tour1)
     	{
@@ -245,9 +244,11 @@ public class Joueur {
     		Carte carte_piocher=this.deck_joueur.tirerCarteAleatoire();
     		this.main.ajouterCarte(carte_piocher);
     		System.out.println("La carte"+carte_piocher.getNom()+" a bien etet ajouter a votre main ! \n");
-    	}
-    	 }
+    	}}
     
+    /**
+     * Permete de faire les pioche tout au long du tour
+     */
     public void piocherCarte() {
         Carte piochee = deck_joueur.tirerCarteAleatoire();
         if (piochee != null) {
@@ -260,9 +261,14 @@ public class Joueur {
             }
         } else {
             System.out.println(" Deck vide, impossible de piocher.");
-        }
-    }
-    
+        }}
+    /**
+     * Fonction permettant d'afficher les cibles en cas d'invocation d'une carte Sort de type degat 
+     * @param adversaire
+     * @param mapping
+     * @param index
+     * @return le decompte necesaire a l'affichage et la l'identification de la cible 
+     */
     private int afficherCiblesAdversaire(Joueur adversaire, Map<Integer, Object> mapping, int index) {
         System.out.println("→ Cibles chez l'adversaire : " + adversaire.getNom());
         System.out.println(index + " - [Héros] " + adversaire.getHero());
@@ -271,11 +277,14 @@ public class Joueur {
         for (Serviteur s : adversaire.getPlateau().getServiteurs()) {
             System.out.println(index + " - [Serviteur adverse] " + s);
             mapping.put(index++, s);
-        }
-
-        return index; // pour permettre la continuité du compteur
-    }
-    
+        }return index; }
+    /**
+     * Fonction permettant d'afficher les cibles en cas d'invocation d'une carte Sort de type Soin 
+     * @param adversaire
+     * @param mapping
+     * @param index
+     * @return le decompte necesaire a l'affichage et la l'identification de la cible 
+     */
     private int afficherCiblesSoin(Joueur adversaire, Map<Integer, Object> mapping, int index) {
     	 System.out.println("→ Cibles soignables pour " + this.nom_joueur + " :");
          System.out.println(index + " - [Héros] " + this.hero);
@@ -285,9 +294,14 @@ public class Joueur {
              System.out.println(index + " - [Serviteur] " + s);
              mapping.put(index++, s);
          }
-         return index;
-    }
-    
+         return index;}
+    /**
+     * Fonction permettant d'afficher les cibles en cas d'invocation d'une carte Sort de type Bosst 
+     * @param adversaire
+     * @param mapping
+     * @param index
+     * @return le decompte necesaire a l'affichage et la l'identification de la cible 
+     */
     private int  afficherCiblesBooster(Joueur adversaire, Map<Integer, Object> mapping, int index){
     	System.out.println("→ Cibles pour boost : uniquement vos serviteurs");
         for (Serviteur s : this.plateau.getServiteurs()) {
@@ -300,24 +314,6 @@ public class Joueur {
         }
         return index;
     }
-
     ///Fin classe 
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
   

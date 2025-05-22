@@ -1,4 +1,9 @@
-package test_unitaires;
+package test_fonctionnel;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
+import java.util.List;
+
+import org.junit.jupiter.api.Test;
 
 import cartes.Carte;
 import cartes.CarteFactory;
@@ -7,14 +12,7 @@ import jeu.Combat;
 import jeu.Hero;
 import jeu.HeroType;
 import jeu.Joueur;
-import jeu.Plateau;
 
-import java.util.List;
-import java.util.Scanner;
-
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Classe de test pour simuler et vérifier le déroulement d’un combat entre deux joueurs.
@@ -46,12 +44,11 @@ public class CombatTest {
        
 
         // Lancement du combat
-        System.out.println("------------- Début du combat -------------\n");
+       
         Combat combat = new Combat();
       
         combat.simulerCombat(aminata, balla);
     }
-
     /**
      * Test automatique – Vérifie qu’un combat peut se lancer et se terminer sans erreur.
      */

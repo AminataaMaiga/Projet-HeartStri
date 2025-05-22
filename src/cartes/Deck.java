@@ -1,11 +1,11 @@
 package cartes;
 /**
  * 
- * Classe représentant un deck (ou paquet) de cartes.
+ * Classe représentant un deck.
  * Il contient une liste de cartes jouables, et permet d’ajouter, tirer ou afficher des cartes.
  * Utilisé comme bibliothèque personnelle d’un joueur au début de la partie.
  * 
- * @author fatimata
+ * @author fatoumata
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +62,7 @@ public class Deck {
     
     /**
     * Vérifie si au moins un serviteur est présent dans le deck.
-    * Utile pour certains effets ou règles du jeu.
+    * Utile pour certains pouvoir heroique ou règles du jeu.
     *
     * @return true s’il existe au moins un serviteur, false sinon
     */

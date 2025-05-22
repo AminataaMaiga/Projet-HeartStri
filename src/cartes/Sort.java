@@ -60,7 +60,7 @@ public class Sort extends Carte {
     public void appliquerEffet(Object cible, Joueur lanceur, Joueur cibleJoueur) {
         String nomSort = this.getType().getNomCarte();
         int force = this.getType().getForce();
-
+        //Utilisation du sort qui varie en focntion du type de sort 
         switch (this.getType()) {
             case DEGAT -> {
                 if (cible instanceof Hero h) {
@@ -91,13 +91,13 @@ public class Sort extends Carte {
                     s.augmenterAttaque(force);
                     System.out.println("→ " + nomSort + " augmente l'attaque de " + s.getNom() + " de " + force);
                 } else {
-                    System.out.println("Boost ne peut être appliqué que sur un serviteur.");
+                    System.out.println(" Boost ne peut être appliqué que sur un serviteur. ");
                     return;
                 }
             }
         }
 
-        // Consommer le sort
+        // Utiliser un sort consomme dans sont nombre d'utilisation
         this.setnb_utilisation();
         if (this.getNbUtilisation() <= 0) {
             lanceur.getMain().retirerCarte(this);

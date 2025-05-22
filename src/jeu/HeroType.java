@@ -1,5 +1,10 @@
 package jeu;
-
+/**
+ * Classe representant les differents type de heros implementer dans notre jeu 
+ * Chaqeu type accopager du nom de sont pouvoir heroique, une description plus en details
+ *  du pouvoir heroique sera accessible par la suite 
+ *  @author Aminata
+ */
 public enum HeroType {
 	MAGE("Explosion de feu"),
 	 GUERRIER("Gain d’armure !"),
