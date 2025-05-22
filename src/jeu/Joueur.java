@@ -4,6 +4,7 @@ import cartes.Deck;
 import cartes.Carte;
 import cartes.Serviteur;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,9 +25,9 @@ import cartes.*;
  * 
  * @author Fatoumata
  */
-public class Joueur {
-	
-	 //etape 1
+public class Joueur implements Serializable{
+	private static final long serialVersionUID = 1L;
+	//etape 1
     private String nom_joueur;
     private Deck deck_joueur; // tout les joueur on un deck de 30 cartes
     

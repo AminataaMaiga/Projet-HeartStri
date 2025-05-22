@@ -1,5 +1,7 @@
 package cartes;
 
+import java.io.Serializable;
+
 import jeu.Hero;
 import jeu.Joueur;
 /**
@@ -9,9 +11,10 @@ import jeu.Joueur;
  *
  *@author Amayel
  */
-public class Arme extends Carte {
-	 private int nbUtilisation;  
-	 private TypeArme type;    
+public class Arme extends Carte implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private int nbUtilisation;  
+	private TypeArme type;    
 
  /**
 * Constructeur d'une carte Arme.

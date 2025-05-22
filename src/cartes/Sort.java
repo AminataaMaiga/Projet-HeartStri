@@ -1,5 +1,7 @@
 package cartes;
 
+import java.io.Serializable;
+
 import jeu.Hero;
 import jeu.Joueur;
 /**
@@ -11,8 +13,8 @@ import jeu.Joueur;
  * 
  * @author Aminata
  */
-public class Sort extends Carte {
-	
+public class Sort extends Carte implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private TypeSort type;
     private int nbUtilisation;
 

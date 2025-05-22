@@ -1,5 +1,6 @@
 package cartes;
 
+import java.io.Serializable;
 import java.util.Random;
 
 import jeu.Hero;
@@ -10,9 +11,9 @@ import jeu.Joueur;
  * @author Fatoumata
  */
 
-public class Serviteur extends Carte{
-	
-    private int point_de_vie;
+public class Serviteur extends Carte implements Serializable{
+	private static final long serialVersionUID = 1L;
+	private int point_de_vie;
     private TypeServiteur type;
 	
 	

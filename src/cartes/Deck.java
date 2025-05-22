@@ -1,4 +1,5 @@
 package cartes;
+import java.io.Serializable;
 /**
  * 
  * Classe représentant un deck.
@@ -11,7 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Deck {
+public class Deck implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private List<Carte> cartes = new ArrayList<>();
 
 	/**

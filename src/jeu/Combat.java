@@ -1,4 +1,5 @@
 package jeu;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
 
@@ -9,8 +10,8 @@ import cartes.*;
  * @author Amayel
  */
 
-public class Combat {
-
+public class Combat implements Serializable{
+	private static final long serialVersionUID = 1L;
 	/**
       Démarre le combat entre deux serviteurs, tour par tour.
      *Affiche l'état de chaque tour et arrête le combat dès qu'un serviteur meurt.

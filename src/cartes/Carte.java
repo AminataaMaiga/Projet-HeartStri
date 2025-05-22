@@ -1,5 +1,7 @@
 package cartes;
 
+import java.io.Serializable;
+
 /**
  * 
  * Classe abstraite représentant une carte générique dans le jeu.
@@ -8,7 +10,8 @@ package cartes;
  * @author Fatoumata
  */
 
-public abstract class Carte {
+public abstract class Carte implements Serializable{
+	private static final long serialVersionUID = 1L;
 	private String nom;
 	private int mana;
 	

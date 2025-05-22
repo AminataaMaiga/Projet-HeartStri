@@ -1,13 +1,16 @@
 package jeu;
 
+import java.io.Serializable;
+
 import cartes.Carte;
 
 /**
  *La classe Hero permet d'observer les attribut et comportement d'un hero dans le projet Heartstri
  * @author Aminata 
  */
-public class Hero {
-    private int pointsDeVie;
+public class Hero implements Serializable {
+	private static final long serialVersionUID = 1L;
+	private int pointsDeVie;
     private int manaHero=1;
     private int manaMax=10;
     private HeroType typeHero;

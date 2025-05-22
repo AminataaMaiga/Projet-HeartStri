@@ -1,6 +1,8 @@
 package jeu;
 
 import cartes.Serviteur;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +10,10 @@ import java.util.List;
  * Classe representant le plateau d'un joeur, c'est a dire l'ensenble des cartes de type serviteur que il a invoquer 
  * @author fatoumata
  */
-public class Plateau {
+public class Plateau implements Serializable{
 	//Carte invoquer sur le plateau 
-
-    private List<Serviteur> cartesActives;
+	private static final long serialVersionUID = 1L;
+	private List<Serviteur> cartesActives;
     public Plateau() {
         this.cartesActives = new ArrayList<>();
     }
