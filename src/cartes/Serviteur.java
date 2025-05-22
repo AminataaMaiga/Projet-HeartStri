@@ -2,6 +2,9 @@ package cartes;
 
 import java.util.Random;
 
+import jeu.Hero;
+import jeu.Joueur;
+
 /**
  * @author Fatoumata
  */
@@ -88,5 +91,22 @@ public class Serviteur extends Carte{
 	    type.setpointAttaque(montant);
 	}
 	
+	public void appliquerEffet(Object cible, Joueur lanceur, Joueur adversaire) {
+	    if (cible instanceof Serviteur s) {
+	        s.recevoircoup(this.getPointAttaque());
+	        System.out.println("Le serviteur " + s.getNom() + " a subi une attaque de " + this.getNom());
+	        this.recevoircoup(s.getPointAttaque());  // effet 
+	        if (s.estMort()) {
+	            adversaire.getMain().retirerCarte(s);
+	        }
+	        if (this.estMort()) {
+	            lanceur.getMain().retirerCarte(this);
+	        }
+
+	    } else if (cible instanceof Hero h) {
+	        h.recevoirDegats(this.getPointAttaque());
+	        System.out.println("Le héros " + h.getNom() + " a subi une attaque de " + this.getNom());
+	    }
+	}
 
 }

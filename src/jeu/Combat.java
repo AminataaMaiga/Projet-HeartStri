@@ -52,21 +52,30 @@ public class Combat {
 
 	public void simulerCombat(Joueur joueur1, Joueur joueur2) {
 		boolean tour=true;
+		boolean tour1=true;//boolean pour indiquer que c'est le premier tour 
+		joueur1.tirerCarteTour1();
+		joueur2.tirerCarteTour1();
+		
 		
 		while(!joueur1.estMort()&&!joueur2.estMort()){
 			
 			if(tour) {
+				if (!tour1){
+					joueur1.piocherCarte();
+				}
 				Tour(joueur1,joueur2);
 				this.afficher_etat(joueur1);
-				tour=false;
+				tour=false;//Passe la main 
 				joueur1.getHero().augmenterMana();
-				joueur1.piocherCarte();
 			}else {
+				if (!tour1){
+					joueur2.piocherCarte();
+				}
 				Tour(joueur2,joueur1);
 				this.afficher_etat(joueur2);
 				tour=true;
 				joueur2.getHero().augmenterMana();
-				joueur2.piocherCarte();
+				tour1=false;
 			}
 			
 		}
@@ -82,7 +91,7 @@ public class Combat {
 	
 	public void Tour(Joueur j,Joueur j2) {
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("\n=== Tour de " + j.getNom() + " ===");
+		System.out.println("\n============== Tour de " + j.getNom() + " ==============");
 		System.out.println("Héros : " + j.getHero());
 		j.getMain().afficherMain();
 		
@@ -93,7 +102,13 @@ public class Combat {
 
 		System.out.println("");
 		int choix=scanner.nextInt();
-		if(choix==0) {
+		while(choix>1||choix<0) {
+			System.out.println("Entrée invalide, veuillez réessayer : \n");
+			choix=scanner.nextInt();
+		}
+		
+		if(choix==0) 
+		{
 			System.out.println("Veuillez choisir la carte de votre main que vous voulez jouer \n");
 	    	int carte_a_jouer= scanner.nextInt();
 	    	Carte c=j.getMain().getCarte(carte_a_jouer);

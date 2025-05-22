@@ -10,7 +10,6 @@ import cartes.*;
 public class Main {
     private List<Carte> cartesEnMain;
 
-
     public Main() {
         cartesEnMain= new ArrayList<>();
     }
@@ -107,10 +106,52 @@ public class Main {
         int i=1;
         for (Carte c : cartesEnMain) {
         	String type = (c instanceof Sort) ? "[Sort]" : (c instanceof Arme) ? "[Arme]" : "[Serviteur]";
-            System.out.println(i+ "- "+ type +" " + c.toString());
+            System.out.println(i + "- "+ type +" " + c.toString());
             i++;
         }
     	}
     }
+    /**
+     * Récupère uniquement les cartes de type Serviteur dans la main.
+     * @return liste des serviteurs.
+     */
+    public List<Carte> getServiteurs() {
+        List<Carte> serviteurs = new ArrayList<>();
+        for (Carte c : cartesEnMain) {
+            if (c instanceof Serviteur) {
+                serviteurs.add(c);
+            }
+        }
+        return serviteurs;
+    }
+
+    /**
+     * Récupère uniquement les cartes de type Sort dans la main.
+     * @return liste des sorts.
+     */
+    public List<Carte> getSorts() {
+        List<Carte> sorts = new ArrayList<>();
+        for (Carte c : cartesEnMain) {
+            if (c instanceof Sort) {
+                sorts.add(c);
+            }
+        }
+        return sorts;
+    }
+
+    /**
+     * Récupère uniquement les cartes de type Arme dans la main.
+     * @return liste des armes.
+     */
+    public List<Carte> getArmes() {
+        List<Carte> armes = new ArrayList<>();
+        for (Carte c : cartesEnMain) {
+            if (c instanceof Arme) {
+                armes.add(c);
+            }
+        }
+        return armes;
+    }
+
  
 }

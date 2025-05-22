@@ -5,7 +5,9 @@ import cartes.Carte;
 import cartes.Serviteur;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 import cartes.*;
@@ -28,6 +30,7 @@ public class Joueur {
     private Hero hero;          // Le héros associé au joueur
     private Main main;          // Cartes en main : 3 pour le joueur1 et 4 pour le joueur2
     private int ordre_joueur;
+    private boolean tour1=true;
 
     /*
      * Constructeur de la classe Joueur 
@@ -55,6 +58,9 @@ public class Joueur {
     
     public int getOrdre() {
     	return this.ordre_joueur;
+    }
+    public boolean getTour1() {
+    	return this.tour1;
     }
 
     @Override
@@ -95,42 +101,46 @@ public class Joueur {
      * Permet.....
      */
     public void attaquer_sort(Carte carte, Joueur adversaire) {
-    	
-    	if (!(carte instanceof Sort sort)) {
-            System.out.println(" La carte n'est pas un sort !");
+        if (!(carte instanceof Sort sort)) {
+            System.out.println("La carte n'est pas un sort !");
             return;
         }
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Sur quel carte ou heros voulez-vous utiliser le sort ?");
-    	System.out.println("Joueur"+this.ordre_joueur+" : "+ this.nom_joueur);
-    	System.out.println("100 -"+this.hero.toString());
-    	this.main.afficherMain();
-    	
-    	System.out.println("Joueur"+adversaire.getOrdre()+" : "+ this.nom_joueur);
-    	System.out.println("200 -"+adversaire.getHero().toString());
-    	adversaire.getMain().afficherMain();
-    	
-    	int cible = scanner.nextInt();
-    	
-    	if(cible==100){
-    		Hero cible_h=this.hero;
-    		appliquer_sort(sort,cible_h,adversaire);
-    	}else if(cible==200) {
-    		Hero cible_h2=adversaire.getHero();
-    		appliquer_sort(sort,cible_h2,adversaire);
-    	}else if(cible<=this.main.nombreCarteMain()) {
-    		//effet sur le joueur lui meme	
-    		Carte cible_c = this.main.getCarte(cible);
-    		appliquer_sort(sort,cible_c,adversaire);
-    	}
-    	else {
-    		//effect sur l'adversaire 
-    		Carte cible_a=adversaire.getMain().getCarte(cible);
-    		appliquer_sort(sort,cible_a,adversaire);
-    	}
-    	
+
+        Scanner scanner = new Scanner(System.in);
+        Map<Integer, Object> mapping = new HashMap<>();
+        int index = 1;
+
+        System.out.println("\n→ Choisissez la cible du sort :");
+
+        // Ciblage joueur actuel
+        System.out.println("Joueur " + this.nom_joueur + " (vous)");
+        System.out.println(index + " - [Héros] " + this.hero);
+        mapping.put(index++, this.hero);
+        for (Carte c : this.main.getServiteurs()) {
+            System.out.println(index + " - [Serviteur] " + c);
+            mapping.put(index++, c);
+        }
+
+        // Ciblage adversaire
+        System.out.println("Joueur " + adversaire.getNom());
+        System.out.println(index + " - [Héros] " + adversaire.getHero());
+        mapping.put(index++, adversaire.getHero());
+        for (Carte c : adversaire.getMain().getServiteurs()) {
+            System.out.println(index + " - [Serviteur] " + c);
+            mapping.put(index++, c);
+        }
+
+        int choix = scanner.nextInt();
+
+        Object cible = mapping.get(choix);
+        if (cible == null) {
+            System.out.println("Choix invalide.");
+            return;
+        }
+
+        appliquer_sort(sort, cible, adversaire);
     }
-    
+
     /**
      * 
      * @param carte
@@ -138,120 +148,103 @@ public class Joueur {
      * Permet.....
      */
     public void attaquer_arme(Carte carte, Joueur adversaire) {
-    	if (!(carte instanceof Arme arme)) {
-            System.out.println(" La carte n'est pas un sort !");
+        if (!(carte instanceof Arme arme)) {
+            System.out.println("La carte n'est pas une arme !");
             return;
         }
-    	Scanner scanner = new Scanner(System.in);
-    	System.out.println("Sur quel carte ou heros  de votre adveraire voulez-vous utiliser l'arme ?");
-    	System.out.println("Joueur"+adversaire.getOrdre()+" : "+ this.nom_joueur);
-    	System.out.println("200 -"+adversaire.getHero().toString());
-    	List<Carte> c = adversaire.getMain().getCartes();
-    	int i=1;
-    	List<Carte> s = new ArrayList<>();
-    	for (Carte cte : c) {
-    	    if (cte instanceof Serviteur serviteur) {
-    	        System.out.println(i + " - " + serviteur);
-    	        s.add(cte);
-    	        i++;
-    	    }}
-    	int cible = scanner.nextInt();
-    	
-    	if (cible==200){
-    		this.appliquer_arme(arme, adversaire.getHero(),adversaire);	
-    	}else {
-    		appliquer_arme(arme,s.get(cible),adversaire);
-    	}
+
+        Scanner scanner = new Scanner(System.in);
+        Map<Integer, Object> mapping = new HashMap<>();
+        int index = 1;
+
+        System.out.println("\n→ Choisissez la cible de l'arme :");
+
+        System.out.println(index + " - [Héros] " + adversaire.getHero());
+        mapping.put(index++, adversaire.getHero());
+
+        for (Carte c : adversaire.getMain().getServiteurs()) {
+            System.out.println(index + " - [Serviteur adverse] " + c);
+            mapping.put(index++, c);
+        }
+
+        int choix = scanner.nextInt();
+        Object cible = mapping.get(choix);
+        if (cible == null) {
+            System.out.println("Choix invalide.");
+            return;
+        }
+
+        appliquer_arme(arme, cible, adversaire);
     }
-    
+
     /**
      * 
      * @param carte
      * @param adversaire
      * Permet.....
      */
-      public void attaquer_serviteur(Carte carte, Joueur adversaire) {
-    	  if (!(carte instanceof Serviteur serviteur)) {
-              System.out.println(" La carte n'est pas un sort !");
-              return;
-          }
-      	Scanner scanner = new Scanner(System.in);
-      	System.out.println("Sur quel carte ou heros  de votre adveraire voulez-vous utiliser l'arme ?");
-      	System.out.println("Joueur"+adversaire.getOrdre()+" : "+ this.nom_joueur);
-      	System.out.println("200 -"+adversaire.getHero().toString());
-      	List<Carte> c = adversaire.getMain().getCartes();
-    	int i=1;
-    	List<Carte> s = new ArrayList<>();
-    	for (Carte cte : c) {
-    	    if (cte instanceof Serviteur serviteur1) {
-    	        System.out.println(i + " - " + serviteur1);
-    	        s.add(cte);
-    	        i++;
-    	    }}
-    	int cible = scanner.nextInt();
-    	
-    	if (cible==200){
-    		this.appliquer_serviteur(serviteur, adversaire.getHero(),adversaire);	
-    	}else {
-    		appliquer_serviteur(serviteur,s.get(cible),adversaire);}
-  }     
-    
-    private void appliquer_sort(Sort sort,Object cible,Joueur adversaire) {
-        if (cible instanceof Serviteur s) {
-            s.recevoircoup(sort.getType().getForce());
-            System.out.println(" Effet infligés au serviteur " + s.getNom()+"par le sort "+ sort.getType().getNomCarte());
-            System.out.println(s.toString());
-            if (s.estMort()) {
- 	   		    adversaire.getMain().retirerCarte(s);
-        } else if (cible instanceof Hero h) {
-            h.recevoirDegats(sort.getType().getForce());
-            System.out.println(" Effet infligés au héros " + h.getNom()+" par le sort "+ sort.getType().getNomCarte());
+    public void attaquer_serviteur(Carte carte, Joueur adversaire) {
+        if (!(carte instanceof Serviteur serviteur)) {
+            System.out.println("La carte n'est pas un serviteur !");
+            return;
         }
-        sort.setnb_utilisation();}}
+
+        Scanner scanner = new Scanner(System.in);
+        Map<Integer, Object> mapping = new HashMap<>();
+        int index = 1;
+
+        System.out.println("\n→ Choisissez la cible du serviteur attaquant :");
+
+        System.out.println(index + " - [Héros] " + adversaire.getHero());
+        mapping.put(index++, adversaire.getHero());
+
+        for (Carte c : adversaire.getMain().getServiteurs()) {
+            System.out.println(index + " - [Serviteur adverse] " + c);
+            mapping.put(index++, c);
+        }
+
+        int choix = scanner.nextInt();
+        Object cible = mapping.get(choix);
+        if (cible == null) {
+            System.out.println("Choix invalide.");
+            return;
+        }
+
+        appliquer_serviteur(serviteur, cible, adversaire);
+    }
+     
     
-    private void appliquer_arme(Arme m, Object cible,Joueur adversaire) {
-    	int degat=m.getTypeArme().getdegat();
-    	 if (cible instanceof Serviteur s){
-    		 s.recevoircoup(degat);
-    		 System.out.println("Le serviteur " + s.getNom() + " a subit une attaque de "+ degat + "de l'arme "+ m.getNom());
-    		 if (s.estMort()) {
- 	   		    adversaire.getMain().retirerCarte(s);
- 	   		}
-         } else if (cible instanceof Hero h){
-        	 h.recevoirDegats(degat);
-        	 System.out.println("Le Hero " + h.getNom() + " a subit une attaque de "+ degat+ "de l'arme "+ m.getNom());
-         }
-         m.setnbutilisation();
+    private void appliquer_sort(Sort sort, Object cible, Joueur adversaire) {
+        sort.appliquerEffet(cible, this, adversaire);
+    }
+
+    
+    private void appliquer_arme(Arme arme, Object cible,Joueur adversaire) {
+    	arme.appliquerEffet(cible, this, adversaire);
     }
     
     private void appliquer_serviteur(Serviteur serviteur,Object cible,Joueur adversaire) {
-    	if (cible instanceof Serviteur s){
-	   		 s.recevoircoup(serviteur.getPointAttaque());
-	   		 System.out.println("Le serviteur " + s.getNom() + " a subit une attaque de "+ serviteur.getNom());
-	   		 serviteur.recevoircoup(s.getPointAttaque());
-	   		if (s.estMort()) {
-	   		    adversaire.getMain().retirerCarte(s);
-	   		}
-        } else if (cible instanceof Hero h){
-	       	 h.recevoirDegats(serviteur.getPointAttaque());
-	       	 System.out.println("Le Hero " + h.getNom() + " a subit une attaque de "+ serviteur.getNom());
-        }
+    	serviteur.appliquerEffet(cible, this, adversaire);
     }
-    
     
     public void tirerCarteTour1() {
-    	int nbc=0;
-    	if(this.ordre_joueur==1) {
-    		nbc=3;
-    	}else {
-    		nbc=4;
+    	if(this.tour1)
+    	{
+    		int nbc=0;
+        	if(this.ordre_joueur==1) {
+        		nbc=3;}else {
+        		nbc=4;}
+        	for (int i=0;i<nbc;i++){
+    			this.main.ajouterCarte(this.deck_joueur.tirerCarteAleatoire());}
+        	this.tour1=false;//Traitement prevu que pour le premier tour
     	}
-    	for (int i=0;i<nbc;i++)
-		{
-			this.main.ajouterCarte(this.deck_joueur.tirerCarteAleatoire());
-		}
-    }
-    
+    	else {
+    		//On pioche une carte par tour 
+    		Carte carte_piocher=this.deck_joueur.tirerCarteAleatoire();
+    		this.main.ajouterCarte(carte_piocher);
+    		System.out.println("La carte"+carte_piocher.getNom()+" a bien etet ajouter a votre main ! \n");
+    	}
+    	 }
     
     public void piocherCarte() {
         Carte piochee = deck_joueur.tirerCarteAleatoire();
