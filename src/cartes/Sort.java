@@ -2,12 +2,26 @@ package cartes;
 
 import jeu.Hero;
 import jeu.Joueur;
-
+/**
+ * 
+ * /**
+ * Classe représentant une carte de type Sort.
+ * Un sort a un type (dégât, soin, boost), un nombre d'utilisations, et applique un effet
+ * immédiat sur une cible (héros ou serviteur) lors de son activation.
+ * 
+ * @author Aminata
+ */
 public class Sort extends Carte {
 	
 	private TypeSort type;
     private int nbUtilisation;
 
+    /**
+     * Constructeur d’un sort à partir de son type et de son nombre d’utilisations.
+     *
+     * @param type le type du sort
+     * @param nbUtilisation le nombre d’utilisations possibles
+     */
     public Sort( TypeSort type, int nbUtilisation) {
         super(type.getNomCarte(), 0);
         this.type = type;
@@ -34,6 +48,15 @@ public class Sort extends Carte {
                ", Effet: " + type.getEffet() + ", Utilisations: " + nbUtilisation + "]";
     }
 
+    /**
+     * Applique l'effet du sort à la cible (Serviteur ou Héros).
+     * Le comportement dépend du type du sort (DÉGAT, SOIN, BOOST).
+     * Après application, décrémente l’utilisation et retire le sort s’il est épuisé.
+     *
+     * @param cible l’objet ciblé (Serviteur ou Hero)
+     * @param lanceur le joueur qui utilise le sort
+     * @param cibleJoueur le joueur possédant la cible (utile pour retirer la carte morte)
+     */
     public void appliquerEffet(Object cible, Joueur lanceur, Joueur cibleJoueur) {
         String nomSort = this.getType().getNomCarte();
         int force = this.getType().getForce();

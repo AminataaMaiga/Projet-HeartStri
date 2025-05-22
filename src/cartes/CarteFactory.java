@@ -3,15 +3,36 @@ package cartes;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * 
+ * Classe utilitaire permettant de générer des cartes aléatoires ou prédéfinies.
+ * Elle sert à initialiser les decks des joueurs ou le pool de cartes disponible.
+ * Fournit des méthodes pour créer des serviteurs, sorts et armes de manière aléatoire.
+ * 
+ * @author fatimata
+ */
 public class CarteFactory {
 
     private static final Random rand = new Random();
 
+    
+    /**
+    * Retourne un entier aléatoire entre min et max inclus.
+    *
+    * @param min valeur minimale
+    * @param max valeur maximale
+    * @return un entier entre min et max
+    */
     public static int rand(int min, int max) {
         return rand.nextInt(max - min + 1) + min;
     }
 
+    
+    /**
+     * Génère un serviteur aléatoire parmi les types définis (sauf le type SOLDAT).
+     *
+     * @return une nouvelle instance de Serviteur
+     */
     public static Serviteur genererServiteurAleatoire() {
         TypeServiteur[] types = TypeServiteur.values();
 
@@ -28,6 +49,11 @@ public class CarteFactory {
         return new Serviteur(type);
     }
 
+    /**
+     * Génère un sort aléatoire avec un coût en mana compris entre 1 et 3.
+     *
+     */
+    
 
     public static Sort genererSortAleatoire() {
         TypeSort[] types = TypeSort.values();
@@ -35,12 +61,23 @@ public class CarteFactory {
         return new Sort( type, rand(1, 3));
     }
 
+    /**
+     * Génère une arme aléatoire parmi les types définis.
+     */
+    
     public static Arme genererArmeAleatoire() {
         TypeArme[] types = TypeArme.values();
         TypeArme type = types[rand.nextInt(types.length)];
         return new Arme( type);
     }
 
+    /**
+     * Génère un ensemble initial de cartes :
+     * - 20 serviteurs
+     * - 15 armes
+     * - 15 sort
+     */
+    
     public static List<Carte> genererSetInitial() {
         List<Carte> toutes = new ArrayList<>();
         for (int i = 0; i < 20; i++) toutes.add(genererServiteurAleatoire());
@@ -67,18 +104,5 @@ public class CarteFactory {
         return deck;
     }
 
-    /**
-    // Ancienne méthode conservée si tu veux encore générer un deck à partir d'une pool
-    public static Deck genererDeckAleatoire(List<Carte> pool, int nbCartes) {
-        List<Carte> copie = new ArrayList<>(pool);
-        List<Carte> deckCartes = new ArrayList<>();
-        for (int i = 0; i < nbCartes && !copie.isEmpty(); i++) {
-            int index = rand.nextInt(copie.size());
-            deckCartes.add(copie.remove(index));
-        }
-        Deck deck = new Deck();
-        deck.setCartes(deckCartes);
-        return deck;
-    }
-    */
+    
 }

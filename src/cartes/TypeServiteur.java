@@ -1,5 +1,19 @@
 package cartes;
 
+/**
+ * 
+ * * Enumération représentant les types de serviteurs disponibles dans le jeu.
+ * Chaque type définit un modèle de serviteur avec :
+ * - un nom
+ * - une action spéciale (textuelle)
+ * - une puissance d’attaque
+ * - un coût en mana
+ * - un nombre de points de vie
+ *
+ * Ces types sont utilisés comme base pour instancier les objets `Serviteur`.
+ * 
+ * @author fatimata
+ */
 public enum TypeServiteur {
     ORC("Orc", "Charge",3,2,10),
     DRAGON("Dragon", "Vol de vie",2,5,15),
@@ -14,7 +28,16 @@ public enum TypeServiteur {
     private int point_attaque;
     private int Mana;
     private int pointdevie;
-
+    
+    /**
+     * Constructeur de l’énumération TypeServiteur.
+     *
+     * @param nomCarte nom affiché de la carte
+     * @param actionSpeciale effet spécial associé au type
+     * @param pa points d’attaque
+     * @param mana coût en mana
+     * @param pdvie points de vie
+     */
     TypeServiteur(String nomCarte, String actionSpeciale,int pa,int mana,int pdvie) {
         this.nomCarte = nomCarte;
         this.actionSpeciale = actionSpeciale;
