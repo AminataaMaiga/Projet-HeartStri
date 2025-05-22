@@ -92,6 +92,7 @@ public class Joueur {
         if (hero.getMana() < carte.getMana()) {
             System.out.println("Mana insuffisant pour jouer " + carte.getNom());
             return false;}
+        hero.consommerMana(carte.getMana());
         if (carte instanceof Sort sort) {
             attaquer_sort(carte, adversaire);
         } else if (carte instanceof Arme arme) {
@@ -100,7 +101,6 @@ public class Joueur {
             plateau.ajouterServiteur(s);
             main.retirerCarte(s);
             attaquer_serviteur(carte, adversaire);}
-        hero.consommerMana(carte.getMana());
         // La carte a bien été jouée
         return true;  }
     
@@ -314,6 +314,9 @@ public class Joueur {
         }
         return index;
     }
+    
+
+
     ///Fin classe 
 }
   
