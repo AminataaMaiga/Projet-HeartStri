@@ -100,15 +100,14 @@ public class Main {
     
     public void afficherMain() {
     	if(estVide()) {
-    		System.out.println("La main est vide");
+    		System.out.println("→ Votre main est vide.");
     	}else {
-        System.out.println("Cartes en main :");
-        int i=1;
-        for (Carte c : cartesEnMain) {
-        	String type = (c instanceof Sort) ? "[Sort]" : (c instanceof Arme) ? "[Arme]" : "[Serviteur]";
-            System.out.println(i + "- "+ type +" " + c.toString());
-            i++;
-        }
+    		System.out.println("→ Cartes en main :");
+    		for (int i = 0; i < cartesEnMain.size(); i++) {
+                Carte c = cartesEnMain.get(i);
+                String type = (c instanceof Sort) ? "[Sort]" : (c instanceof Arme) ? "[Arme]" : "[Serviteur]";
+                System.out.printf("   %d - %s %s%n", i + 1, type, c);
+            }
     	}
     }
     /**

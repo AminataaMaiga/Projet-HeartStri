@@ -5,7 +5,9 @@ public enum TypeServiteur {
     DRAGON("Dragon", "Vol de vie",2,5,15),
     TROLL("Troll", "Provocation",5,4,9),
     SPECTRE("Spectre", "Râle d’agonie",4,3,8),
-    PACIFISTE("Pacifiste", "Aucun effet",1,0,5);
+    PACIFISTE("Pacifiste", "Aucun effet",1,0,5),
+	SOLDAT("Soldat","Aucun effet", 2, 1, 1 );
+
 
     private final String nomCarte;
     private final String actionSpeciale;

@@ -5,7 +5,7 @@ package cartes;
  * @author Fatoumata
  */
 
-public class Carte {
+public abstract class Carte {
 	private String nom;
 	private int mana;
 	
@@ -22,4 +22,7 @@ public class Carte {
 		return mana;
 	}
 
+	 public abstract String toString(); // ou autre méthode utile à forcer dans les sous-classes
+	
 }
+

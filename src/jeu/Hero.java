@@ -17,6 +17,9 @@ public class Hero {
     private int manaHero=1;
     private int manaMax=10;
     private HeroType typeHero;
+    private PouvoirHeroique pouvoir;
+    private boolean pouvoirUtilise = false; // une seule fois par tour
+
  
 
     /**
@@ -30,6 +33,7 @@ public class Hero {
     public Hero(HeroType typeHero) {
         this.typeHero = typeHero;
         this.pointsDeVie = 30;
+        this.pouvoir = initialiserPouvoir(typeHero);
     }
     
     
@@ -51,13 +55,20 @@ public class Hero {
     
     public void augmenterMana() {
         if (manaHero< manaMax) {
-            manaHero++;
+            manaHero+=3;
         }   
     }
     
+    public boolean getPouvoirutiliser() {
+    	return this.pouvoirUtilise;
+    }
+    
+    public HeroType getTypeHero() {
+    	return this.typeHero;
+    }
 
-    public String getPouvoirHeroique() {
-    	return typeHero.getPouvoir();
+    public PouvoirHeroique getPouvoirHeroique() {
+    	return pouvoir;
     }
 
     @Override
@@ -97,7 +108,23 @@ public class Hero {
         this.pointsDeVie += montant;
         if (pointsDeVie > 30) pointsDeVie = 30;
     }
-
     
+    public void setPouvoirHeroique() {
+    	this.pouvoirUtilise=true;
+    }
+
+    private PouvoirHeroique initialiserPouvoir(HeroType type) {
+        return switch (type) {
+            case MAGE -> new PouvoirMage();
+            case CHASSEUR -> new PouvoirChasseur();
+            case GUERRIER -> new PouvoirGuerrier();
+            case PALADIN -> new PouvoirPaladin();
+            case PRÊTRE -> new PouvoirPretre();
+            case DÉMONISTE -> new PouvoirDemoniste();
+            case VOLEUR -> new PouvoirVoleur();
+            default -> null;
+        };
+    }
+
 
 }

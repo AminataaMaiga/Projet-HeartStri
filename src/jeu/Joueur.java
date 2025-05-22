@@ -31,6 +31,7 @@ public class Joueur {
     private Main main;          // Cartes en main : 3 pour le joueur1 et 4 pour le joueur2
     private int ordre_joueur;
     private boolean tour1=true;
+    private Plateau plateau;
 
     /*
      * Constructeur de la classe Joueur 
@@ -41,6 +42,7 @@ public class Joueur {
         this.hero = hero;
         this.main = new Main();
         this.ordre_joueur=numj;
+        this.plateau=new Plateau();
     }
 
     public String getNom() {
@@ -71,28 +73,31 @@ public class Joueur {
         return hero.estMort(); }
     
     
-    public void jouerCarte(Carte carte, Joueur adversaire) {
+    public boolean jouerCarte(Carte carte, Joueur adversaire) {
         if (!main.estDansMain(carte)) {
-            System.out.println( carte.getNom() + " n'est pas dans la main.");
-            return;
+            System.out.println(carte.getNom() + " n'est pas dans la main.");
+            return false;
         }
 
         if (hero.getMana() < carte.getMana()) {
-            System.out.println(" Mana insuffisant pour jouer " + carte.getNom());
-            return;
+            System.out.println("Mana insuffisant pour jouer " + carte.getNom());
+            return false;
         }
-       
+
         if (carte instanceof Sort sort) {
-        	attaquer_sort(carte,adversaire);//OK
-        } 
-        else if (carte instanceof Arme arme) {
-        	attaquer_arme(carte,adversaire);
+            attaquer_sort(carte, adversaire);
+        } else if (carte instanceof Arme arme) {
+            attaquer_arme(carte, adversaire);
+        } else if (carte instanceof Serviteur s) {
+            plateau.ajouterServiteur(s);
+            main.retirerCarte(s);
+            attaquer_serviteur(carte, adversaire);
         }
-        else if (carte instanceof Serviteur s) {
-        	attaquer_serviteur(carte,adversaire);
-        }
+
         hero.consommerMana(carte.getMana());
+        return true;  // La carte a bien été jouée
     }
+
     
     /**
      * 
@@ -103,44 +108,42 @@ public class Joueur {
     public void attaquer_sort(Carte carte, Joueur adversaire) {
         if (!(carte instanceof Sort sort)) {
             System.out.println("La carte n'est pas un sort !");
-            return;
-        }
-
+            return;}
+        
         Scanner scanner = new Scanner(System.in);
         Map<Integer, Object> mapping = new HashMap<>();
         int index = 1;
 
         System.out.println("\n→ Choisissez la cible du sort :");
-
-        // Ciblage joueur actuel
-        System.out.println("Joueur " + this.nom_joueur + " (vous)");
-        System.out.println(index + " - [Héros] " + this.hero);
-        mapping.put(index++, this.hero);
-        for (Carte c : this.main.getServiteurs()) {
-            System.out.println(index + " - [Serviteur] " + c);
-            mapping.put(index++, c);
+        switch (sort.getType()) {
+            case DEGAT -> {
+                index=this.afficherCiblesAdversaire(adversaire, mapping, index);
+            }
+            case SOIN -> {
+                index=this.afficherCiblesSoin(adversaire, mapping, index);
+            }
+            case BOOST_ATTAQUE -> {
+               index=this.afficherCiblesBooster(adversaire, mapping, index);
+            }
+            default -> {
+                System.out.println("Type de sort non géré.");
+                return;}
         }
-
-        // Ciblage adversaire
-        System.out.println("Joueur " + adversaire.getNom());
-        System.out.println(index + " - [Héros] " + adversaire.getHero());
-        mapping.put(index++, adversaire.getHero());
-        for (Carte c : adversaire.getMain().getServiteurs()) {
-            System.out.println(index + " - [Serviteur] " + c);
-            mapping.put(index++, c);
-        }
-
+        // Choix utilisateur
         int choix = scanner.nextInt();
-
         Object cible = mapping.get(choix);
         if (cible == null) {
             System.out.println("Choix invalide.");
             return;
         }
+        appliquer_sort(sort, cible, adversaire);}
 
-        appliquer_sort(sort, cible, adversaire);
+
+    public Plateau getPlateau() {
+        return plateau;
     }
-
+    
+    
     /**
      * 
      * @param carte
@@ -152,21 +155,20 @@ public class Joueur {
             System.out.println("La carte n'est pas une arme !");
             return;
         }
-
         Scanner scanner = new Scanner(System.in);
         Map<Integer, Object> mapping = new HashMap<>();
         int index = 1;
-
+        
         System.out.println("\n→ Choisissez la cible de l'arme :");
 
         System.out.println(index + " - [Héros] " + adversaire.getHero());
         mapping.put(index++, adversaire.getHero());
 
-        for (Carte c : adversaire.getMain().getServiteurs()) {
-            System.out.println(index + " - [Serviteur adverse] " + c);
-            mapping.put(index++, c);
-        }
-
+        for (Carte c : adversaire.getPlateau().getServiteurs()) {
+            System.out.println(index + " - [Plateau joueur adverse] " + c);
+            mapping.put(index++, c);}
+       
+        
         int choix = scanner.nextInt();
         Object cible = mapping.get(choix);
         if (cible == null) {
@@ -198,9 +200,9 @@ public class Joueur {
         System.out.println(index + " - [Héros] " + adversaire.getHero());
         mapping.put(index++, adversaire.getHero());
 
-        for (Carte c : adversaire.getMain().getServiteurs()) {
-            System.out.println(index + " - [Serviteur adverse] " + c);
-            mapping.put(index++, c);
+        for (Serviteur s : adversaire.getPlateau().getServiteurs()) {
+            System.out.println(index + " - [Serviteur adverse] " + s);
+            mapping.put(index++, s);
         }
 
         int choix = scanner.nextInt();
@@ -212,7 +214,7 @@ public class Joueur {
 
         appliquer_serviteur(serviteur, cible, adversaire);
     }
-     
+  
     
     private void appliquer_sort(Sort sort, Object cible, Joueur adversaire) {
         sort.appliquerEffet(cible, this, adversaire);
@@ -259,6 +261,44 @@ public class Joueur {
         } else {
             System.out.println(" Deck vide, impossible de piocher.");
         }
+    }
+    
+    private int afficherCiblesAdversaire(Joueur adversaire, Map<Integer, Object> mapping, int index) {
+        System.out.println("→ Cibles chez l'adversaire : " + adversaire.getNom());
+        System.out.println(index + " - [Héros] " + adversaire.getHero());
+        mapping.put(index++, adversaire.getHero());
+
+        for (Serviteur s : adversaire.getPlateau().getServiteurs()) {
+            System.out.println(index + " - [Serviteur adverse] " + s);
+            mapping.put(index++, s);
+        }
+
+        return index; // pour permettre la continuité du compteur
+    }
+    
+    private int afficherCiblesSoin(Joueur adversaire, Map<Integer, Object> mapping, int index) {
+    	 System.out.println("→ Cibles soignables pour " + this.nom_joueur + " :");
+         System.out.println(index + " - [Héros] " + this.hero);
+         mapping.put(index++, this.hero);
+
+         for (Serviteur s : this.plateau.getServiteurs()) {
+             System.out.println(index + " - [Serviteur] " + s);
+             mapping.put(index++, s);
+         }
+         return index;
+    }
+    
+    private int  afficherCiblesBooster(Joueur adversaire, Map<Integer, Object> mapping, int index){
+    	System.out.println("→ Cibles pour boost : uniquement vos serviteurs");
+        for (Serviteur s : this.plateau.getServiteurs()) {
+            System.out.println(index + " - [Serviteur] " + s);
+            mapping.put(index++, s);
+        }
+        for (Carte s : this.main.getServiteurs()) {
+            System.out.println(index + " - [Serviteur] " + s);
+            mapping.put(index++, s);
+        }
+        return index;
     }
 
     ///Fin classe 

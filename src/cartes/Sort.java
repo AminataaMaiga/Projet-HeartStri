@@ -8,7 +8,7 @@ public class Sort extends Carte {
 	private TypeSort type;
     private int nbUtilisation;
 
-    public Sort( int mana, TypeSort type, int nbUtilisation) {
+    public Sort( TypeSort type, int nbUtilisation) {
         super(type.getNomCarte(), 0);
         this.type = type;
         this.nbUtilisation = nbUtilisation;

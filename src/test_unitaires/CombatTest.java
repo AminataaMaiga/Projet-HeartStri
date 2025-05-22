@@ -7,6 +7,7 @@ import jeu.Combat;
 import jeu.Hero;
 import jeu.HeroType;
 import jeu.Joueur;
+import jeu.Plateau;
 
 import java.util.List;
 import java.util.Scanner;
@@ -34,9 +35,10 @@ public class CombatTest {
         Hero h2 = new Hero(HeroType.CHASSEUR);
 
         // Création des decks
-        Deck deck1 = factory.genererDeckAleatoire(setInitial, 30);
-        Deck deck2 = factory.genererDeckAleatoire(setInitial, 30);
+        Deck deck1 = factory.genererDeckAleatoire();
+        Deck deck2 = factory.genererDeckAleatoire();
 
+       
         // Création des joueurs
         Joueur aminata = new Joueur("aminata", deck1, h1, 1);
         Joueur balla = new Joueur("balla", deck2, h2, 2);
@@ -46,6 +48,7 @@ public class CombatTest {
         // Lancement du combat
         System.out.println("------------- Début du combat -------------\n");
         Combat combat = new Combat();
+      
         combat.simulerCombat(aminata, balla);
     }
 
@@ -60,8 +63,9 @@ public class CombatTest {
         Hero h1 = new Hero(HeroType.MAGE);
         Hero h2 = new Hero(HeroType.GUERRIER);
 
-        Deck deck1 = factory.genererDeckAleatoire(setInitial, 30);
-        Deck deck2 = factory.genererDeckAleatoire(setInitial, 30);
+        Deck deck1 = factory.genererDeckAleatoire();
+        Deck deck2 = factory.genererDeckAleatoire();
+       
 
         Joueur j1 = new Joueur("Testeur1", deck1, h1, 1);
         Joueur j2 = new Joueur("Testeur2", deck2, h2, 2);

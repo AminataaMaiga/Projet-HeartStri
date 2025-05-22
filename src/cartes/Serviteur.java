@@ -97,10 +97,10 @@ public class Serviteur extends Carte{
 	        System.out.println("Le serviteur " + s.getNom() + " a subi une attaque de " + this.getNom());
 	        this.recevoircoup(s.getPointAttaque());  // effet 
 	        if (s.estMort()) {
-	            adversaire.getMain().retirerCarte(s);
+	            adversaire.getPlateau().retirerServiteur(s);
 	        }
 	        if (this.estMort()) {
-	            lanceur.getMain().retirerCarte(this);
+	            lanceur.getPlateau().retirerServiteur(this);
 	        }
 
 	    } else if (cible instanceof Hero h) {

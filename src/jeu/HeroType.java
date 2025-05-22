@@ -1,14 +1,14 @@
 package jeu;
 
 public enum HeroType {
-	MAGE("Inflige 1 dégât à n'importe quelle cible"),
-	 GUERRIER("Gagne 2 points d'armure"),
-	 CHASSEUR("Inflige 2 dégâts au héros adverse"),
-	 DRUIDE("Gagne 1 armure et 1 attaque ce tour"),
-	 VOLEUR("Ajoute une dague 1/2"),
-	 PRÊTRE("Soigne 2 points de vie"),
-	 PALADIN("Invoque un serviteur 1/1"),
-	 DÉMONISTE("Pioche une carte et perd 2 PV");
+	MAGE("Explosion de feu"),
+	 GUERRIER("Gain d’armure !"),
+	 CHASSEUR("Tir assuré"),
+	 DRUIDE("Change Forme"),
+	 VOLEUR("Maitrise des dagues"),
+	 PRÊTRE("Energie divine"),
+	 PALADIN("Renfort"),
+	 DÉMONISTE("Connexion");
 
 	    private final String pouvoir;
 

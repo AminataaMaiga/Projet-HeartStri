@@ -1,4 +1,5 @@
 package jeu;
+import java.util.List;
 import java.util.Scanner;
 
 import cartes.*;
@@ -55,11 +56,11 @@ public class Combat {
 		boolean tour1=true;//boolean pour indiquer que c'est le premier tour 
 		joueur1.tirerCarteTour1();
 		joueur2.tirerCarteTour1();
-		
+		int numTour=1;
 		
 		while(!joueur1.estMort()&&!joueur2.estMort()){
-			
 			if(tour) {
+				 System.out.println("\n============================ TOUR "+ numTour +" ============================");
 				if (!tour1){
 					joueur1.piocherCarte();
 				}
@@ -76,6 +77,9 @@ public class Combat {
 				tour=true;
 				joueur2.getHero().augmenterMana();
 				tour1=false;
+				System.out.println("\n============================ FIN TOUR "+ numTour +" ============================");
+				numTour++;
+				
 			}
 			
 		}
@@ -88,38 +92,89 @@ public class Combat {
 		}
         
     }
-	
-	public void Tour(Joueur j,Joueur j2) {
-		Scanner scanner = new Scanner(System.in);
-		System.out.println("\n============== Tour de " + j.getNom() + " ==============");
-		System.out.println("Héros : " + j.getHero());
-		j.getMain().afficherMain();
-		
-
-		System.out.println("Que voulez-vous faire ? : \n");
-		System.out.println("0 - Jouer une carte");
-		System.out.println("1 - Passer le tour\n");
-
-		System.out.println("");
-		int choix=scanner.nextInt();
-		while(choix>1||choix<0) {
-			System.out.println("Entrée invalide, veuillez réessayer : \n");
-			choix=scanner.nextInt();
-		}
-		
-		if(choix==0) 
-		{
-			System.out.println("Veuillez choisir la carte de votre main que vous voulez jouer \n");
-	    	int carte_a_jouer= scanner.nextInt();
-	    	Carte c=j.getMain().getCarte(carte_a_jouer);
-	    	if (c != null) {
-	    	    j.jouerCarte(c, j2);}
-		}
-		
+	public static void ligneSeparatrice() {
+	    System.out.println("\n--------------------------------------------------\n");
 	}
+
+	public void Tour(Joueur j, Joueur j2) {
+	    Scanner scanner = new Scanner(System.in);
+	    boolean continuerTour = true;
+	    while (continuerTour) {
+	    	System.out.println("\n============== TOUR DE " + j.getNom().toUpperCase() + " ==============");
+	    	System.out.println("→ Héros : " + j.getHero());
+	    	Combat.ligneSeparatrice();
+
+	    	j.getMain().afficherMain();
+	    	j.getPlateau().afficherPlateau();
+	    	Combat.ligneSeparatrice();
+
+
+	    	System.out.println("  Que voulez-vous faire ?");
+	    	System.out.println("   0 - Invoquer une carte depuis la main");
+	    	System.out.println("   1 - Attaquer avec un serviteur sur le plateau");
+	    	System.out.println("   2 - Utiliser le pouvoir héroïque");
+	    	System.out.println("   3 - Passer le tour");
+
+	    	System.out.print("→ Votre choix : ");
+
+
+	        int choix = scanner.nextInt();
+
+	        switch (choix) {
+	            case 0 -> {
+	                if (j.getMain().estVide()) {
+	                    System.out.println("Vous n'avez pas de carte en main !");
+	                } else {
+	                    System.out.println("Choisissez une carte à jouer : ");
+	                    int index = scanner.nextInt();
+	                    Carte carte = j.getMain().getCarte(index);
+	                    if (carte != null) {
+	                        boolean success = j.jouerCarte(carte, j2);
+	                        if (success) {
+	                            continuerTour = false; 
+	                        }
+	                    }
+	                }
+	            }
+	            case 1 -> {
+	                List<Serviteur> serviteurs = j.getPlateau().getServiteurs();
+	                if (serviteurs.isEmpty()) {
+	                    System.out.println("Aucun serviteur sur le plateau.");
+	                } else {
+	                    System.out.println("Choisissez un de vos serviteurs à utiliser pour attaquer :");
+	                    for (int i = 0; i < serviteurs.size(); i++) {
+	                        System.out.println((i + 1) + " - " + serviteurs.get(i));
+	                    }
+	                    int choixServiteur = scanner.nextInt();
+	                    if (choixServiteur > 0 && choixServiteur <= serviteurs.size()) {
+	                        Serviteur s = serviteurs.get(choixServiteur - 1);
+	                        j.attaquer_serviteur(s, j2);
+	                    } else {
+	                        System.out.println("Choix invalide.");
+	                    }
+	                    continuerTour = false;
+	                }
+	              
+	            }
+	            case 2 ->{
+	            	//Utilisation du pouvoir heroique
+	            	if(j.getHero().getPouvoirutiliser()) {
+	            		System.out.println("Le pouvoir heroique de "+ j.getHero().getNom()+" a deja ete utiliser !");
+	            	}else {
+	            		Object cible = j.getHero().getPouvoirHeroique().choisirCible(j, j2);
+	                    j.getHero().getPouvoirHeroique().activerPouvoir(j, cible);
+	            	}
+	            }
+	            case 3 -> continuerTour = false;
+	            default -> System.out.println("Entrée invalide, veuillez réessayer.");
+	        }
+	    }
+	}
+		
+	
 	
 	public void afficher_etat(Joueur j) {
-		System.out.println("\nFin du tour de " + j.getNom());
+		System.out.println("\n============== FIN TOUR DE " + j.getNom().toUpperCase() + " ==============");
 		System.out.println("→ État du héros : " + j.getHero().toString());
 		System.out.println("→ Cartes restantes : " + j.getMain().taille()+"\n");
 	}

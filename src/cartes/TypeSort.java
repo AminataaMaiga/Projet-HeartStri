@@ -1,9 +1,9 @@
 package cartes;
 
 public enum TypeSort {
-    DEGAT("Degat","Inflige des dégâts",2),
-    SOIN("Soin","Soigne le serviteur ou le hero de votre choix",3),
-    BOOST_ATTAQUE("Boost","Augmente l'attaque",1);
+    DEGAT("Degat","Inflige des dégâts de 2 point",2),
+    SOIN("Soin","Soigne le serviteur ou le hero de votre choix : ajoute 3 point de vie ",3),
+    BOOST_ATTAQUE("Boost","Augmente l'attaque de 1",1);
 
 	private final String nomCarte;
     private final String effet;

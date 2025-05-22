@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Deck {
-    private List<Carte> cartes = new ArrayList<>();
+	private List<Carte> cartes = new ArrayList<>();
 
     public List<Carte> getCartes() {
         return cartes;
@@ -31,4 +31,14 @@ public class Deck {
             System.out.println(" - " + c);
         }
     }
+    
+    public boolean existeServiteur() {
+        for (Carte c : cartes) {
+            if (c instanceof Serviteur) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

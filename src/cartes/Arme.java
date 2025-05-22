@@ -7,9 +7,9 @@ public class Arme extends Carte {
 	 private int nbUtilisation;
 	 private TypeArme type;
 
-	    public Arme( int mana, int nbUtilisation, TypeArme type) {
+	    public Arme( TypeArme type) {
 	        super(type.getNom(), 0);
-	        this.nbUtilisation = nbUtilisation;
+	        this.nbUtilisation = type.getNbUtilisation();
 	        this.type = type;
 	    }
 
