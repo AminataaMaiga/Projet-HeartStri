@@ -147,7 +147,7 @@ public class Combat implements Serializable{
 	    	System.out.println("   2 - Utiliser le pouvoir héroïque");
 	    	System.out.println("   3 - Passer le tour");
 	    	System.out.println("   4 - Sauvegarder la partie");
-			System.out.println("   5 - Reprendre une partie sauvegardée");
+			
 
 			
 
@@ -215,25 +215,6 @@ public class Combat implements Serializable{
 	                    System.out.println("Sauvegarde annulée.");
 	                }
 	            }
-				case 5 -> {
-					System.out.print("Voulez-vous reprendre une partie sauvegardée ? (o/n) : ");
-					scanner.nextLine();
-					String reponse = scanner.nextLine();
-					if (reponse.equalsIgnoreCase("o")) {
-						System.out.print("Nom du fichier de sauvegarde à charger : ");
-						String nomFichier = scanner.nextLine();
-						try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(nomFichier))) {
-							Joueur joueur1Sauvegarde = (Joueur) in.readObject();
-							Joueur joueur2Sauvegarde = (Joueur) in.readObject();
-							System.out.println("✔ Partie chargée avec succès !");
-							simulerCombat(joueur1Sauvegarde, joueur2Sauvegarde);
-						} catch (Exception e) {
-							System.err.println("Erreur lors du chargement : " + e.getMessage());
-						}
-					} else {
-						System.out.println("Reprise annulée.");
-					}
-				}
 				default -> System.out.println(" Entrée invalide, veuillez réessayer.");
 			}
 		}
