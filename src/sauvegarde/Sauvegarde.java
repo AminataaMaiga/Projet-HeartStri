@@ -1,5 +1,4 @@
 package sauvegarde;
-import java.lang.ClassNotFoundException;
 import java.io.*;
 
 public class Sauvegarde {
