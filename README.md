@@ -61,26 +61,6 @@ Simulation Java d’un jeu de cartes stratégique inspiré de **Hearthstone**, d
 - ✅ Diagrammes de cas d’utilisation (joueur, deck, combat…)
 - ✅ Diagrammes de classes (modélisation complète)
 - ✅ Diagrammes de séquence (tour de jeu, invocation, attaque)
-- 🔄 Diagramme système (prévu étape 5)
-
----
-
-## 👥 Répartition des tâches
-
-### ✳️ TRAORE Fatoumata Salia – Développement & Documentation
-- `Carte`, `Serviteur`, `Joueur`, `Plateau`
-- Méthodes : `attaquer()`, `recevoirCoup()`, `invoquerServiteur()`, `piocherCarte()`
-- Rédaction du rapport UML, tableau de suivi, `README.md`
-
-### ✳️ MAIGA Aminata Alidji – Git & Mécanique de jeu
-- `Deck`, `Hero`, `Sort`, `Tour`
-- Gestion du mana, du tour de jeu et des effets spéciaux
-- Suivi du dépôt GitHub et coordination de l’équipe
-
-### ✳️ KANE Amayel – Combat & Cartes spéciales
-- `Combat`, `Main`, `Arme`
-- Intégration du système d’attaque avec arme, gestion des effets
-- Tests fonctionnels globaux du jeu (simulations complètes)
 
 ---
 
@@ -95,7 +75,4 @@ Simulation Java d’un jeu de cartes stratégique inspiré de **Hearthstone**, d
 - Une **vidéo de démonstration** sera réalisée pour illustrer le fonctionnement complet du jeu.
 - Elle sera mise en ligne sur **YouTube** lors du dépôt final.
 
----
-
-## ✅ Dernière mise à jour : 14/05/2025 – Étape 2 terminée
 
