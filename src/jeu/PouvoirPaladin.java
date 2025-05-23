@@ -1,12 +1,15 @@
 package jeu;
 
+import java.io.Serializable;
+
 import cartes.Serviteur;
 import cartes.TypeServiteur;
 
 /**
  * @author Aminata 
  */
-public class PouvoirPaladin implements PouvoirHeroique {
+public class PouvoirPaladin implements PouvoirHeroique, Serializable {
+    private static final long serialVersionUID = 1L;
 
 	/**
 	 * Le paladin ets le seul her qui peut invoquer une carte serviteur de type soldat:

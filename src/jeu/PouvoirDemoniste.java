@@ -2,11 +2,12 @@ package jeu;
 
 import cartes.Carte;
 import cartes.*;
-
+import  java.io.Serializable;
 /**
  * @author Aminata 
  */
-public class PouvoirDemoniste implements PouvoirHeroique{
+public class PouvoirDemoniste implements PouvoirHeroique,Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	
 	/**

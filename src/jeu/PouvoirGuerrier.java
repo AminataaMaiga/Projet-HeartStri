@@ -1,9 +1,16 @@
 package jeu;
 
+import java.io.Serializable;
+
 /**
  * @author Aminata 
  */
-public class PouvoirGuerrier implements PouvoirHeroique{
+public class PouvoirGuerrier implements PouvoirHeroique, Serializable{
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Le pouvoir héroïque du guerrier.
+	 * Il permet de soigner le héros de 2 points de vie.
+	 */
 
 	@Override
 	public void activerPouvoir(Joueur lanceur, Object cible) {

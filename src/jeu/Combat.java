@@ -2,6 +2,10 @@ package jeu;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import cartes.*;
 
@@ -97,7 +101,20 @@ public class Combat implements Serializable{
     }
 	
 	
-	
+	public static void reprendrePartieSauvegardee() {
+    Scanner scanner = new Scanner(System.in);
+    System.out.print("Nom du fichier de sauvegarde à charger : ");
+    String nomFichier = scanner.nextLine();
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(nomFichier))) {
+        Joueur joueur1 = (Joueur) in.readObject();
+        Joueur joueur2 = (Joueur) in.readObject();
+        System.out.println("✔ Partie chargée avec succès !");
+        Combat combat = new Combat();
+        combat.simulerCombat(joueur1, joueur2);
+    } catch (Exception e) {
+        System.err.println("Erreur lors du chargement : " + e.getMessage());
+    }
+}
 	
 	public static void ligneSeparatrice() {
 	    System.out.println("\n--------------------------------------------------\n");
@@ -129,6 +146,10 @@ public class Combat implements Serializable{
 	    	System.out.println("   1 - Attaquer avec un serviteur sur le plateau");
 	    	System.out.println("   2 - Utiliser le pouvoir héroïque");
 	    	System.out.println("   3 - Passer le tour");
+	    	System.out.println("   4 - Sauvegarder la partie");
+			System.out.println("   5 - Reprendre une partie sauvegardée");
+
+			
 
 	    	System.out.print("→ Votre choix : ");
 
@@ -182,9 +203,40 @@ public class Combat implements Serializable{
 	            	}
 	            }
 	            case 3 -> continuerTour = false;
-	            default -> System.out.println(" Entrée invalide, veuillez réessayer.");
-	        }
-	    }
+	            case 4 -> {
+	                System.out.print("Voulez-vous sauvegarder la partie ? (o/n) : ");
+	                scanner.nextLine(); // Consommer le retour à la ligne
+	                String reponse = scanner.nextLine();
+	                if (reponse.equalsIgnoreCase("o")) {
+	                    System.out.print("Nom du fichier de sauvegarde : ");
+	                    String nomFichier = scanner.nextLine();
+	                    sauvegarderPartie(joueur1, joueur2, nomFichier);
+	                } else {
+	                    System.out.println("Sauvegarde annulée.");
+	                }
+	            }
+				case 5 -> {
+					System.out.print("Voulez-vous reprendre une partie sauvegardée ? (o/n) : ");
+					scanner.nextLine();
+					String reponse = scanner.nextLine();
+					if (reponse.equalsIgnoreCase("o")) {
+						System.out.print("Nom du fichier de sauvegarde à charger : ");
+						String nomFichier = scanner.nextLine();
+						try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(nomFichier))) {
+							Joueur joueur1Sauvegarde = (Joueur) in.readObject();
+							Joueur joueur2Sauvegarde = (Joueur) in.readObject();
+							System.out.println("✔ Partie chargée avec succès !");
+							simulerCombat(joueur1Sauvegarde, joueur2Sauvegarde);
+						} catch (Exception e) {
+							System.err.println("Erreur lors du chargement : " + e.getMessage());
+						}
+					} else {
+						System.out.println("Reprise annulée.");
+					}
+				}
+				default -> System.out.println(" Entrée invalide, veuillez réessayer.");
+			}
+		}
 	}
 		
 	
@@ -196,7 +248,21 @@ public class Combat implements Serializable{
 	}
 	
 	
-	
+	/**
+	 * Sauvegarde la partie en cours dans un fichier.
+	 * @param joueur1 Le joueur 1
+	 * @param joueur2 Le joueur 2
+	 * @param nomFichier Le nom du fichier de sauvegarde
+	 */
+	private void sauvegarderPartie(Joueur joueur1, Joueur joueur2, String nomFichier) {
+	    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomFichier))) {
+	        out.writeObject(joueur1);
+	        out.writeObject(joueur2);
+	        System.out.println("✔ Partie sauvegardée avec succès !");
+	    } catch (Exception e) {
+	        System.err.println("Erreur lors de la sauvegarde : " + e.getMessage());
+	    }
+	}
 }
 
 

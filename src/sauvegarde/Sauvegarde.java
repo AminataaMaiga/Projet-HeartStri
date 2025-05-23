@@ -10,9 +10,9 @@ public class Sauvegarde {
 	        System.out.println("✔ Chargement réussi depuis : " + nomFichier);
 	        return obj;
 	    } catch (IOException e) {
-	        System.err.println("❌ Erreur IO : " + e.getMessage());
+	        System.err.println("Erreur IO : " + e.getMessage());
 	    } catch (ClassNotFoundException e) {
-	        System.err.println("❌ Classe non trouvée : " + e.getMessage());
+	        System.err.println(" Classe non trouvée : " + e.getMessage());
 	    }
 	    return null;
 	}

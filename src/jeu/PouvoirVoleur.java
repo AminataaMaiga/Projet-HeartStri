@@ -1,9 +1,12 @@
 package jeu;
 
+import java.io.Serializable;
+
 /**
  * @author fatoumata
  */
-public class PouvoirVoleur implements PouvoirHeroique {
+public class PouvoirVoleur implements PouvoirHeroique, Serializable {
+    private static final long serialVersionUID = 1L;
 
 	@Override
 	public void activerPouvoir(Joueur lanceur, Object cible) {

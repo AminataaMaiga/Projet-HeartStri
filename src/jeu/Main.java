@@ -3,12 +3,14 @@ package jeu;
 import java.util.ArrayList;
 import java.util.List;
 import cartes.*;
+import java.io.Serializable;
 /**
  * Classe represenant les cartes dans la main d'un joueur au cour du jeu  
  * @author Amayel
  */
 
-public class Main {
+public class Main implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Carte> cartesEnMain;
 
     public Main() {
@@ -137,6 +139,4 @@ public class Main {
                 armes.add(c);
             }}
         return armes;}
-
- 
 }

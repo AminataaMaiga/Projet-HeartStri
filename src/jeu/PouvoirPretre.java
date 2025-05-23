@@ -1,5 +1,6 @@
 package jeu;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -7,7 +8,12 @@ import cartes.Serviteur;
 /**
  * @author Aminata 
  */
-public class PouvoirPretre implements PouvoirHeroique {
+public class PouvoirPretre implements PouvoirHeroique, Serializable {
+	private static final long serialVersionUID = 1L;
+	/**
+	 * Le pouvoir héroïque du prêtre.
+	 * Il permet de soigner le héros ou un serviteur de 2 points de vie.
+	 */
 
 	@Override
 	public void activerPouvoir(Joueur lanceur, Object cible) {

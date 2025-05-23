@@ -3,13 +3,14 @@ package jeu;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.io.Serializable;
 
 import cartes.Serviteur;
 
 /**
  * @author Aminata 
  */
-public class PouvoirMage implements PouvoirHeroique {
+public class PouvoirMage implements PouvoirHeroique, Serializable {
 	
 	@Override
 	public void activerPouvoir(Joueur lanceur, Object cible) {

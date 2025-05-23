@@ -1,7 +1,6 @@
 package cartes;
 
 import java.io.Serializable;
-import java.util.Random;
 
 import jeu.Hero;
 import jeu.Joueur;
