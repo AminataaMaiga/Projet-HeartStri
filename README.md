@@ -32,6 +32,7 @@ Simulation Java d’un jeu de cartes stratégique inspiré de **Hearthstone**, d
 - JUnit 5
 - GitHub (versioning)
 - H2 / JSON / XML (prévu pour persistance - étape 5)
+- Module Serializable
 
 ---
 
