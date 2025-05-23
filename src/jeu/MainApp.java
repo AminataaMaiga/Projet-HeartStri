@@ -81,7 +81,6 @@ public class MainApp {
                 
                 case 4 ->{
                 	System.out.print("Voulez-vous reprendre une partie sauvegardée ? (o/n) : ");
-					scanner.nextLine();
 					String reponse = scanner.nextLine();
 					if (reponse.equalsIgnoreCase("o")) {
 						System.out.print("Nom du fichier de sauvegarde à charger : ");
